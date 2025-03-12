@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #0978e7;
+}
+
+.title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 
+    -2px -2px 0 #000,  
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000;
+  user-select: none;
+}
+
+.logo img {
+  height: 80px;
+}
