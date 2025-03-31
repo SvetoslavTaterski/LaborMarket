@@ -1,8 +1,28 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+app-header {
+  flex: 0 0 auto;
+}
+
 .main-container {
+  flex: 1 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 100vh;
   background: #efeded;
+}
+
+app-footer {
+  flex: 0 0 auto;
 }
