@@ -9,5 +9,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
   @Input() buttonLabel: string = "";
-  @Input() svgContent: string = '';
+  @Input() cardInfo: string = "";
+  @Input() iconClass: string = "";
 }
