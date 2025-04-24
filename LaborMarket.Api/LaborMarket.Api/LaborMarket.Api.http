@@ -1,0 +1,6 @@
+@LaborMarket.Api_HostAddress = http://localhost:5267
+
+GET {{LaborMarket.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
