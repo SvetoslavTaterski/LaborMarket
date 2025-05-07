@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,10 +9,10 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: UserService) {}
 
   onAboutClick() {
-    this.apiService.ping().subscribe({
+    this.apiService.getAllUsers().subscribe({
       next: (response) => console.log('API response:', response),
       error: (err) => console.error('API error:', err)
     });

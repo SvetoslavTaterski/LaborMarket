@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
-  private baseUrl = 'https://localhost:7207/';
+export class UserService {
+  private baseUrl = 'https://localhost:7207/UserController/';
 
   constructor(private http: HttpClient) {}
 
-  ping(): Observable<string> {
-    return this.http.get<string>(this.baseUrl + 'main/ping');
+  getAllUsers(): Observable<string> {
+    return this.http.get<string>(this.baseUrl + 'GetAllUsers');
   }
 }

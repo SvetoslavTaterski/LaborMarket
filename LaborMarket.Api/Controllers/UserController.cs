@@ -5,26 +5,20 @@ using Microsoft.EntityFrameworkCore;
 namespace LaborMarket.Api.Controllers
 {
 	[ApiController]
-	[Route("main")]
-	public class MainController : Controller
+	[Route("UserController")]
+	public class UserController : Controller
 	{
 		private readonly LaborMarketContext _context;
 
-		public MainController(LaborMarketContext context)
+		public UserController(LaborMarketContext context)
 		{
 			_context = context;
 		}
 
-		[HttpGet]
+		[HttpGet("GetAllUsers")]
 		public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
 		{
 			return await _context.Users.ToListAsync();
-		}
-
-		[HttpGet("ping")]
-		public IActionResult Ping()
-		{
-			return Ok(new { message = "SVEEEEEEEEEEEEEEEEEEE!" });
 		}
 	}
 }
