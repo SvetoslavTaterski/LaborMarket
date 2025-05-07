@@ -8,6 +8,7 @@
 
 		public DbSet<UserModel> Users { get; set; }
 		public DbSet<JobModel> Jobs { get; set; }
+		public DbSet<EmployerModel> Employers { get; set; }
 		public DbSet<ApplicationModel> Applications { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +22,11 @@
 				.HasOne(a => a.Job)
 				.WithMany()
 				.HasForeignKey(a => a.JobId);
+
+			modelBuilder.Entity<JobModel>()
+				.HasOne(j => j.Employer)
+				.WithMany()
+				.HasForeignKey(j => j.EmployerId);
 		}
 	}
 }

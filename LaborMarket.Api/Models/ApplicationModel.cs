@@ -6,12 +6,11 @@ namespace LaborMarket.Api.Models
 	{
 		[Key]
 		public int ApplicationId { get; set; }
-		public int UserId { get; set; }
-		public int JobId { get; set; }
 		public DateTime ApplicationDate { get; set; }
 		public string Status { get; set; } = null!;
-
+		public int UserId { get; set; }
 		public UserModel User { get; set; } = null!;
+		public int JobId { get; set; }
 		public JobModel Job { get; set; } = null!;
 	}
 }
