@@ -1,1 +1,22 @@
-<p>workers-page works!</p>
+<div class="table-container">
+<table mat-table [dataSource]="userData">
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef>FirstName</th>
+    <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef>LastName</th>
+    <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+  </ng-container>
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef>Created At</th>
+    <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
