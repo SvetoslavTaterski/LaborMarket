@@ -1,1 +1,26 @@
-<p>employers-page works!</p>
+<app-header></app-header>
+<div class="page-content">
+  <div class="table-container">
+    <table mat-table [dataSource]="employersData">
+      <ng-container matColumnDef="companyName">
+        <th mat-header-cell *matHeaderCellDef>Име на компанията</th>
+        <td mat-cell *matCellDef="let element">{{ element.companyName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="companyEmail">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.contactEmail }}</td>
+      </ng-container>
+      <ng-container matColumnDef="companyPhone">
+        <th mat-header-cell *matHeaderCellDef>Телефонен номер</th>
+        <td mat-cell *matCellDef="let element">{{ element.contactPhone }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSize]="6"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>
+<app-footer></app-footer>
