@@ -13,14 +13,33 @@
   font-size: 40px;
   font-weight: bold;
   color: white;
-  text-shadow: 
-    -2px -2px 0 #000,  
-     2px -2px 0 #000,
-    -2px  2px 0 #000,
-     2px  2px 0 #000;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000;
   user-select: none;
 }
 
 .logo img {
   height: 80px;
+}
+
+.login-button {
+  border-radius: 1rem;
+  border: 2px solid black;
+  background-color: #008bf8;
+  color: white;
+  padding: 10px 20px; 
+  font-size: 16px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+
+  &:hover {
+    background-color: #005bb5; 
+    color: #f0f0f0; 
+    transform: scale(1.05); 
+  }
+
+  &:active {
+    transform: scale(0.95); 
+  }
 }
