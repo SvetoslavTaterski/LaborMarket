@@ -7,13 +7,15 @@ import { PositionsPageComponent } from './app/components/pages/positions-page/po
 import { EmployersPageComponent } from './app/components/pages/employers-page/employers-page.component';
 import { provideHttpClient } from '@angular/common/http';
 import { LoginPageComponent } from './app/components/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './app/components/pages/register-page/register-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }, // Default route
   { path: 'workers', component: WorkersPageComponent },
   { path: 'positions', component: PositionsPageComponent},
   { path: 'employers', component: EmployersPageComponent},
-  { path: 'login', component: LoginPageComponent}
+  { path: 'login', component: LoginPageComponent},
+  { path: 'sign-in', component: RegisterPageComponent}
 ];
 
 bootstrapApplication(AppComponent, {
