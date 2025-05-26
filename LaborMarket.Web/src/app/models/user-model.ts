@@ -6,3 +6,5 @@ export type UserDataModel = {
     passwordHash: string;
     createdAt: string;
 };
+
+export type CreateUserModel = Omit<UserDataModel, 'userId'>;

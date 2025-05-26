@@ -1,13 +1,13 @@
 <div class="wrapper">
   <form class="login">
     <p class="title">Вход</p>
-    <input type="text" placeholder="Име" autofocus/>
+    <input type="text" placeholder="Име" [(ngModel)]="userModel.firstName" name="firstName" autofocus/>
     <i class="fa fa-user"></i>
-    <input type="text" placeholder="Фамилия" autofocus/>
+    <input type="text" placeholder="Фамилия" [(ngModel)]="userModel.lastName" name="lastName" autofocus/>
     <i class="fa fa-id-card"></i>
-    <input type="password" placeholder="Парола" />
+    <input type="password" placeholder="Парола" [(ngModel)]="userModel.passwordHash" name="passwordHash" />
     <i class="fa fa-key"></i>
-    <input type="text" placeholder="Email" autofocus/>
+    <input type="text" placeholder="Email" [(ngModel)]="userModel.email" name="email" autofocus/>
     <i class="fa fa-envelope"></i>
     <div class="links">
         <a href="/login">Вход</a>
@@ -15,7 +15,7 @@
     </div>
     <button>
       <i class="spinner"></i>
-      <span class="state">Вход</span>
+      <span class="state" (click)="createUser()">Регистрирай се</span>
     </button>
   </form>
 </div>

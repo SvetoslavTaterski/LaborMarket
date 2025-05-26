@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserDataModel } from '../models/user-model';
+import { CreateUserModel, UserDataModel } from '../models/user-model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +13,9 @@ export class UserService {
 
   getAllUsers(): Observable<UserDataModel[]> {
     return this.http.get<UserDataModel[]>(this.baseUrl + 'GetAllUsers');
+  }
+
+  createUser(user: CreateUserModel): Observable<UserDataModel> {
+    return this.http.post<UserDataModel>(this.baseUrl + 'CreateUser', user);
   }
 }
