@@ -25,11 +25,9 @@ export class RegisterPageComponent {
     this.userService.createUser(this.userModel).subscribe({
       next: (response) => {
         console.log('User created successfully:', response);
-        alert('User registered successfully!');
       },
       error: (err) => {
         console.error('Error creating user:', err);
-        alert('Failed to register user.');
       },
     });
   }
