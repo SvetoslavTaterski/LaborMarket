@@ -1,18 +1,22 @@
 ﻿namespace LaborMarket.Api.Models
 {
+	using LaborMarket.Api.Models.AuthenticationModels;
+	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore;
 
-	public class LaborMarketContext : DbContext
+	public class LaborMarketContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 	{
 		public LaborMarketContext(DbContextOptions<LaborMarketContext> options) : base(options) { }
 
-		public DbSet<UserModel> Users { get; set; }
+		public DbSet<UserModel> Workers { get; set; }
 		public DbSet<JobModel> Jobs { get; set; }
 		public DbSet<EmployerModel> Employers { get; set; }
 		public DbSet<ApplicationModel> Applications { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
+
 			modelBuilder.Entity<ApplicationModel>()
 				.HasOne(a => a.User)
 				.WithMany()

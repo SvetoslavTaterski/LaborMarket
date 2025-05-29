@@ -18,27 +18,7 @@ namespace LaborMarket.Api.Controllers
 		[HttpGet("GetAllUsers")]
 		public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
 		{
-			return await _context.Users.ToListAsync();
-		}
-
-		[HttpPost("CreateUser")]
-		public async Task<ActionResult<UserModel>> CreateUser([FromBody] UserModel user)
-		{
-			if (user == null)
-			{
-				return BadRequest("User data is invalid.");
-			}
-
-			try
-			{
-				_context.Users.Add(user);
-				await _context.SaveChangesAsync();
-				return Ok(user);
-			}
-			catch (Exception ex)
-			{
-				return StatusCode(500, $"Internal server error: {ex.Message}");
-			}
+			return await _context.Workers.ToListAsync();
 		}
 	}
 }

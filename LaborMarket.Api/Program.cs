@@ -1,4 +1,6 @@
 using LaborMarket.Api.Models;
+using LaborMarket.Api.Models.AuthenticationModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,18 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LaborMarketContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure Identity
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+{
+	options.Password.RequireDigit = true;
+	options.Password.RequiredLength = 6;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireUppercase = true;
+	options.Password.RequireLowercase = true;
+})
+.AddEntityFrameworkStores<LaborMarketContext>()
+.AddDefaultTokenProviders();
 
 var app = builder.Build();
 
