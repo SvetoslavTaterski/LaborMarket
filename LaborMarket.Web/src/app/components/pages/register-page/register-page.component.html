@@ -1,14 +1,39 @@
 <div class="wrapper">
   <form class="login">
-    <p class="title">Вход</p>
-    <input type="text" placeholder="Име" [(ngModel)]="userModel.firstName" name="firstName" autofocus/>
-    <i class="fa fa-user"></i>
-    <input type="text" placeholder="Фамилия" [(ngModel)]="userModel.lastName" name="lastName" autofocus/>
-    <i class="fa fa-id-card"></i>
-    <input type="password" placeholder="Парола" [(ngModel)]="userModel.passwordHash" name="passwordHash" />
-    <i class="fa fa-key"></i>
-    <input type="text" placeholder="Email" [(ngModel)]="userModel.email" name="email" autofocus/>
-    <i class="fa fa-envelope"></i>
+    <p class="title">Регистрация</p>
+    <p class="role-title">Регистрирай се като</p>
+    <div class="role-selection">
+      <label>
+        <input type="radio" [(ngModel)]="userModel.role" name="role" value="user" checked />
+        Работник
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="userModel.role" name="role" value="employer" />
+        Работодател
+      </label>
+    </div>
+    <div *ngIf="userModel.role === 'user'">
+      <input type="text" placeholder="Име" [(ngModel)]="userModel.firstName" name="firstName" autofocus/>
+      <i class="fa fa-user"></i>
+      <input type="text" placeholder="Фамилия" [(ngModel)]="userModel.lastName" name="lastName" autofocus/>
+      <i class="fa fa-id-card"></i>
+      <input type="password" placeholder="Парола" [(ngModel)]="userModel.passwordHash" name="passwordHash" />
+      <i class="fa fa-key"></i>
+      <input type="text" placeholder="Email" [(ngModel)]="userModel.email" name="email" autofocus/>
+      <i class="fa fa-envelope"></i>
+      <input type="text" placeholder="Телефон" [(ngModel)]="userModel.phoneNumber" name="phoneNumber" autofocus/>
+      <i class="fa fa-phone"></i>
+    </div>
+    <div *ngIf="userModel.role === 'employer'">
+      <input type="text" placeholder="Име на компанията" [(ngModel)]="employerModel.companyName" name="companyName" autofocus/>
+      <i class="fa fa-user"></i>
+      <input type="password" placeholder="Парола" [(ngModel)]="employerModel.companyPassword" name="password" />
+      <i class="fa fa-key"></i>
+      <input type="text" placeholder="Email" [(ngModel)]="employerModel.contactEmail" name="contactEmail" autofocus/>
+      <i class="fa fa-envelope"></i>
+      <input type="text" placeholder="Телефон" [(ngModel)]="employerModel.contactPhone" name="contactPhone" autofocus/>
+      <i class="fa fa-phone"></i>
+    </div>
     <div class="links">
         <a href="/login">Вход</a>
         <a href="#">Върни се</a>

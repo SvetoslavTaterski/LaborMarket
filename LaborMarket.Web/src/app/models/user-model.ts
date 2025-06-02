@@ -1,10 +1,19 @@
 export type UserDataModel = {
-    userId: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    passwordHash: string;
-    createdAt: string;
+  userId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  passwordHash: string;
+  createdAt: string;
 };
 
-export type CreateUserModel = Omit<UserDataModel, 'userId'>;
+export type CreateUserModel = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  passwordHash: string;
+  createdAt: string;
+  role: string;
+};
