@@ -59,7 +59,7 @@ namespace LaborMarket.Api.Controllers
 			await _context.SaveChangesAsync();
 
 
-			return Ok("User registered successfully.");
+			return Ok(new { message = "User registered successfully." });
 		}
 
 		[HttpPost("register-employer")]
