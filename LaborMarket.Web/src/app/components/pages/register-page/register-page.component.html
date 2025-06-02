@@ -17,7 +17,7 @@
       <i class="fa fa-user"></i>
       <input type="text" placeholder="Фамилия" [(ngModel)]="userModel.lastName" name="lastName" autofocus/>
       <i class="fa fa-id-card"></i>
-      <input type="password" placeholder="Парола" [(ngModel)]="userModel.passwordHash" name="passwordHash" />
+      <input type="password" placeholder="Парола" [(ngModel)]="userModel.password" name="password" />
       <i class="fa fa-key"></i>
       <input type="text" placeholder="Email" [(ngModel)]="userModel.email" name="email" autofocus/>
       <i class="fa fa-envelope"></i>
@@ -27,7 +27,7 @@
     <div *ngIf="userModel.role === 'employer'">
       <input type="text" placeholder="Име на компанията" [(ngModel)]="employerModel.companyName" name="companyName" autofocus/>
       <i class="fa fa-user"></i>
-      <input type="password" placeholder="Парола" [(ngModel)]="employerModel.companyPassword" name="password" />
+      <input type="password" placeholder="Парола" [(ngModel)]="employerModel.companyPassword" name="companyPassword" />
       <i class="fa fa-key"></i>
       <input type="text" placeholder="Email" [(ngModel)]="employerModel.contactEmail" name="contactEmail" autofocus/>
       <i class="fa fa-envelope"></i>

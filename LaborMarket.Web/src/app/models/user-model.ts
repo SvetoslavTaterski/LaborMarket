@@ -13,7 +13,7 @@ export type CreateUserModel = {
   lastName: string;
   email: string;
   phoneNumber: string;
-  passwordHash: string;
+  password: string;
   createdAt: string;
   role: string;
 };

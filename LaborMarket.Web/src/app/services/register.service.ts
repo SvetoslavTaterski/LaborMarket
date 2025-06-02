@@ -6,12 +6,13 @@ import { CreateUserModel, UserDataModel } from '../models/user-model';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private baseUrl = 'https://localhost:7207/UserController/';
+export class RegisterService {
+  private baseUrl = 'https://localhost:7207/RegisterController/';
 
   constructor(private http: HttpClient) {}
 
-  getAllUsers(): Observable<UserDataModel[]> {
-    return this.http.get<UserDataModel[]>(this.baseUrl + 'GetAllUsers');
+  registerUser(user: CreateUserModel): Observable<UserDataModel> {
+    return this.http.post<UserDataModel>(this.baseUrl + 'register-user', user);
   }
+
 }

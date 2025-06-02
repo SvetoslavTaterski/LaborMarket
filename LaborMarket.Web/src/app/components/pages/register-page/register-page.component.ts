@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CreateUserModel } from '../../../models/user-model';
 import { CreateEmployerModel } from '../../../models/employer-model';
+import { RegisterService } from '../../../services/register.service';
 
 @Component({
   selector: 'app-register-page',
@@ -17,7 +17,7 @@ export class RegisterPageComponent {
     firstName: '',
     lastName: '',
     email: '',
-    passwordHash: '',
+    password: '',
     phoneNumber: '',
     role: 'user',
     createdAt: new Date().toISOString() // Set current date as createdAt
@@ -30,18 +30,18 @@ export class RegisterPageComponent {
     companyPassword: '',
     role: 'employer',
   }
-  
-  constructor(private userService: UserService) {
+
+  constructor(private registerService: RegisterService) {
   }
 
   createUser() {
-    this.userService.createUser(this.userModel).subscribe({
+    this.registerService.registerUser(this.userModel).subscribe({
       next: (response) => {
-        console.log('User created successfully:', response);
+        console.log('User registered successfully:', response);
       },
-      error: (err) => {
-        console.error('Error creating user:', err);
-      },
+      error: (error) => {
+        console.error('Error registering user:', error);
+      }
     });
   }
 }

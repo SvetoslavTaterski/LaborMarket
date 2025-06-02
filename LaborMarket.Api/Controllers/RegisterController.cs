@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace LaborMarket.Api.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
-	public class AccountController : ControllerBase
+	[Route("RegisterController")]
+	public class RegisterController : ControllerBase
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly RoleManager<ApplicationRole> _roleManager;
 		private readonly LaborMarketContext _context;
 
-		public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, LaborMarketContext context)
+		public RegisterController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, LaborMarketContext context)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
@@ -35,6 +35,7 @@ namespace LaborMarket.Api.Controllers
 			{
 				UserName = model.Email,
 				Email = model.Email,
+				PhoneNumber = model.PhoneNumber,
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
@@ -50,7 +51,8 @@ namespace LaborMarket.Api.Controllers
 				FirstName = model.FirstName,
 				LastName = model.LastName,
 				PasswordHash = model.Password,
-				CreatedAt = DateTime.UtcNow
+				CreatedAt = DateTime.UtcNow,
+				PhoneNumber = model.PhoneNumber
 			};
 
 			await _context.Workers.AddAsync(newUser);
@@ -105,7 +107,7 @@ namespace LaborMarket.Api.Controllers
 
 			if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
 				return Unauthorized();
-			
+
 
 			await _signInManager.SignInAsync(user, isPersistent: false);
 
