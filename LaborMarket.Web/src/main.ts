@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'employers', component: EmployersPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'sign-in', component: RegisterPageComponent },
+  { path: '**', redirectTo: '' } // Redirect unmatched routes to the homepage
 ];
 
 bootstrapApplication(AppComponent, {
