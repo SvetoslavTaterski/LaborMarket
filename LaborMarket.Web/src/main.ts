@@ -8,16 +8,30 @@ import { EmployersPageComponent } from './app/components/pages/employers-page/em
 import { provideHttpClient } from '@angular/common/http';
 import { LoginPageComponent } from './app/components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './app/components/pages/register-page/register-page.component';
+import { importProvidersFrom } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }, // Default route
   { path: 'workers', component: WorkersPageComponent },
-  { path: 'positions', component: PositionsPageComponent},
-  { path: 'employers', component: EmployersPageComponent},
-  { path: 'login', component: LoginPageComponent},
-  { path: 'sign-in', component: RegisterPageComponent}
+  { path: 'positions', component: PositionsPageComponent },
+  { path: 'employers', component: EmployersPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'sign-in', component: RegisterPageComponent },
 ];
 
 bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes), provideHttpClient()],
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(
+      ToastrModule.forRoot({
+        timeOut: 3000, // Duration of toast
+        positionClass: 'toast-top-right', // Position of toast
+        preventDuplicates: true,
+      })
+    ),
+  ],
 }).catch((err) => console.error(err));

@@ -1,12 +1,40 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RegisterService } from '../../../services/register.service';
+import { LoginModel } from '../../../models/login-model';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss'
+  styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {
+  loginModel: LoginModel = {
+    email: '',
+    password: '',
+  };
 
+  constructor(
+    private readonly registerService: RegisterService,
+    private readonly toastrService: ToastrService,
+    private readonly router: Router
+  ) {}
+
+  login() {
+    this.registerService.login(this.loginModel).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+        this.toastrService.success("Успешно влизане");
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error logging in:', error);
+        this.toastrService.error("Грешно потребителско име или парола","Error");
+      },
+    });
+  }
 }

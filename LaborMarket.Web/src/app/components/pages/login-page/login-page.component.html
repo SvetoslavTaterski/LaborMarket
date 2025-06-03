@@ -1,15 +1,15 @@
 <div class="wrapper">
   <form class="login">
     <p class="title">Вход</p>
-    <input type="text" placeholder="Име" autofocus/>
+    <input type="text" placeholder="Email" [(ngModel)]="loginModel.email" name="email" autofocus/>
     <i class="fa fa-user"></i>
-    <input type="password" placeholder="Парола" />
+    <input type="password" placeholder="Парола" [(ngModel)]="loginModel.password" name="password" />
     <i class="fa fa-key"></i>
     <div class="links">
         <a href="/sign-in">Създай акаунт</a>
         <a href="#">Върни се</a>
     </div>
-    <button>
+    <button (click)="login()">
       <i class="spinner"></i>
       <span class="state">Вход</span>
     </button>
