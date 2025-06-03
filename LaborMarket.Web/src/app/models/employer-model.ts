@@ -9,6 +9,6 @@ export type CreateEmployerModel = {
   companyName: string;
   contactEmail: string;
   contactPhone: string;
-  companyPassword: string;
+  password: string;
   role: string;
 };

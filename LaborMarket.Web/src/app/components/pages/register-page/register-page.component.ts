@@ -27,7 +27,7 @@ export class RegisterPageComponent {
     companyName: '',
     contactEmail: '',
     contactPhone: '',
-    companyPassword: '',
+    password: '',
     role: 'employer',
   }
 
@@ -35,13 +35,25 @@ export class RegisterPageComponent {
   }
 
   createUser() {
-    this.registerService.registerUser(this.userModel).subscribe({
-      next: (response) => {
-        console.log('User registered successfully:', response);
-      },
-      error: (error) => {
-        console.error('Error registering user:', error);
-      }
-    });
+    if(this.userModel.role === 'user'){
+      this.registerService.registerUser(this.userModel).subscribe({
+        next: (response) => {
+          console.log('User registered successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error registering user:', error);
+        }
+      });
+    }
+    else if(this.userModel.role === 'employer'){
+      this.registerService.registerEmployer(this.employerModel).subscribe({
+        next: (response) => {
+          console.log('Employer registered successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error registering employer:', error);
+        }
+      });
+    }
   }
 }
