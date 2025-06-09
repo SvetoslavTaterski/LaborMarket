@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CreateUserModel, UserDataModel } from '../models/user-model';
 import { CreateEmployerModel, EmployerDataModel } from '../models/employer-model';
 import { LoginModel } from '../models/login-model';
+import { LoginResponseModel } from '../models/login-response-model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +22,8 @@ export class RegisterService {
     return this.http.post<EmployerDataModel>(this.baseUrl + 'register-employer', employer);
   }
 
-  login(loginModel: LoginModel): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.baseUrl + 'login', loginModel);
+  login(loginModel: LoginModel): Observable<LoginResponseModel> {
+    return this.http.post<LoginResponseModel>(this.baseUrl + 'login', loginModel);
   }
 
 }
