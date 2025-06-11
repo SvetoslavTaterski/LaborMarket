@@ -20,5 +20,16 @@ namespace LaborMarket.Api.Controllers
 		{
 			return await _context.Workers.ToListAsync();
 		}
+
+		[HttpGet("GetUserByEmail")]
+		public async Task<ActionResult<UserModel>> GetUserByEmail(string userEmail)
+		{
+			var user = await _context.Workers.FirstOrDefaultAsync(u => u.Email == userEmail);
+
+			if (user == null)
+				return NotFound();
+
+			return user;
+		}
 	}
 }

@@ -14,4 +14,12 @@ export class EmployerService {
   getAllEmployers(): Observable<EmployerDataModel[]> {
     return this.http.get<EmployerDataModel[]>(this.baseUrl + 'GetAllEmployers');
   }
+
+   getEmployerByEmail(): Observable<EmployerDataModel> {
+      const email = localStorage.getItem('email');
+      if (!email) {
+        throw new Error('Email not found in local storage');
+      }
+      return this.http.get<EmployerDataModel>(`${this.baseUrl}GetEmployerByEmail?userEmail=${email}`);
+    }
 }

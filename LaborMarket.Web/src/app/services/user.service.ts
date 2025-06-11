@@ -14,4 +14,12 @@ export class UserService {
   getAllUsers(): Observable<UserDataModel[]> {
     return this.http.get<UserDataModel[]>(this.baseUrl + 'GetAllUsers');
   }
+
+  getUserByEmail(): Observable<UserDataModel> {
+    const email = localStorage.getItem('email');
+    if (!email) {
+      throw new Error('Email not found in local storage');
+    }
+    return this.http.get<UserDataModel>(`${this.baseUrl}GetUserByEmail?userEmail=${email}`);
+  }
 }

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../services/user.service';
+import { UserDataModel } from '../../../models/user-model';
+import { EmployerDataModel } from '../../../models/employer-model';
+import { EmployerService } from '../../../services/employer.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,13 +14,49 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './profile-page.component.scss',
 })
 export class ProfilePageComponent {
-  public userEmail: string | null = null;
+  private userRole: string | null = null;
 
+  public displayModel = {
+    displayName: '',
+    email: '',
+    phoneNumber: '',
+  };
 
-  constructor(public authService: AuthService) {
-  }
+  constructor(
+    public authService: AuthService,
+    private userService: UserService,
+    private employerService: EmployerService
+  ) {}
 
   ngOnInit(): void {
-    this.userEmail = localStorage.getItem('email');
+    this.userRole = localStorage.getItem('userRole');
+
+    if (this.userRole === 'User') {
+      this.userService.getUserByEmail().subscribe({
+        next: (user: UserDataModel) => {
+          this.displayModel = {
+            displayName: user.firstName + ' ' + user.lastName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+          };
+        },
+        error: (err) => {
+          console.error('Error fetching user data:', err);
+        },
+      });
+    } else if (this.userRole === 'Employer') {
+      this.employerService.getEmployerByEmail().subscribe({
+        next: (employer: EmployerDataModel) => {
+          this.displayModel = {
+            displayName: employer.companyName,
+            email: employer.contactEmail,
+            phoneNumber: employer.contactPhone,
+          };
+        },
+        error: (err) => {
+          console.error('Error fetching employer data:', err);
+        },
+      });
+    }
   }
 }
