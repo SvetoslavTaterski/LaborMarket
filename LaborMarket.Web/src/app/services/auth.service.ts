@@ -18,7 +18,6 @@ export class AuthService {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userRole', response.role);
     localStorage.setItem('email', response.email);
-    localStorage.setItem('phoneNumber', response.phoneNumber);
   }
 
   logout() {
@@ -27,7 +26,6 @@ export class AuthService {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userRole');
     localStorage.removeItem('email');
-    localStorage.removeItem('phoneNumber');
     this.router.navigate(['/']);
   }
 

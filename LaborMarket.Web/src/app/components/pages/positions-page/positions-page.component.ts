@@ -16,6 +16,7 @@ import { JobsService } from '../../../services/jobs.service';
   styleUrl: './positions-page.component.scss'
 })
 export class PositionsPageComponent implements OnInit {
+    public userRole: string | null = null;
     public jobsData = new MatTableDataSource<JobDataModel>([]);
     public displayedColumns: string[] = ['title', 'company', 'location', 'postedAt'];
   
@@ -24,7 +25,7 @@ export class PositionsPageComponent implements OnInit {
     constructor(private jobService: JobsService) {}
   
     ngOnInit() {
-  
+      this.userRole = localStorage.getItem('userRole');
       this.jobService.getAllJobs().subscribe({
         next: (response) => {
           this.jobsData.data = response;
