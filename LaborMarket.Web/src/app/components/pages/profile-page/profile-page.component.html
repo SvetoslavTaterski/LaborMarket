@@ -1,0 +1,21 @@
+<app-header></app-header>
+<main>
+  <div class="card">
+    <div class="card-details">
+      <i class="fa-solid fa-user profile-icon"></i>
+      <div>
+        <p class="text-body">
+          <i class="fa-solid fa-user"></i>Инфо за потребителя
+        </p>
+        <p class="text-body">
+          <i class="fa-solid fa-envelope"></i>{{ userEmail }}
+        </p>
+        <p class="text-body">
+          <i class="fa-solid fa-phone"></i>Инфо за потребителя
+        </p>
+      </div>
+    </div>
+    <button class="card-button" (click)="this.authService.logout()">Изход</button>
+  </div>
+  <div></div>
+</main>

@@ -11,6 +11,7 @@ import { RegisterPageComponent } from './app/components/pages/register-page/regi
 import { importProvidersFrom } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfilePageComponent } from './app/components/pages/profile-page/profile-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }, // Default route
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'employers', component: EmployersPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'sign-in', component: RegisterPageComponent },
+  { path: 'profile', component: ProfilePageComponent},
   { path: '**', redirectTo: '' } // Redirect unmatched routes to the homepage
 ];
 

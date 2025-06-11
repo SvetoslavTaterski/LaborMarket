@@ -6,7 +6,7 @@
   </a>
   <div class="title">Трудова Борса</div>
   <button class="login-button" *ngIf="!authService.getLoggedInStatus()" routerLink="/login">Вход</button>
-  <div class="profile-icon" *ngIf="authService.getLoggedInStatus()">
+  <div class="profile-icon" *ngIf="authService.getLoggedInStatus()" routerLink="/profile">
     <i class="fa-solid fa-user"></i>
     <span>Профил</span>
   </div>
