@@ -63,7 +63,6 @@ export class PositionsPageComponent implements OnInit {
     this.createJobModel.employerEmail = localStorage.getItem('email') || ''; // Set employer email
     this.jobService.createJob(this.createJobModel).subscribe({
       next: () => {
-        
         console.log('Job created successfully:', this.createJobModel);
       },
       error: (err) => {

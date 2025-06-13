@@ -26,4 +26,8 @@ export class RegisterService {
     return this.http.post<LoginResponseModel>(this.baseUrl + 'login', loginModel);
   }
 
+  logout(): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'logout', {});
+  }
+
 }

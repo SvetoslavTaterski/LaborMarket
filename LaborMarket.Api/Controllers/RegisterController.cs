@@ -116,6 +116,13 @@ namespace LaborMarket.Api.Controllers
 			return Ok(new { user.Email, Role = roles[0] });
 		}
 
+		[HttpPost("logout")]
+		public async Task<IActionResult> Logout()
+		{
+			await _signInManager.SignOutAsync();
+			return Ok(new { message = "User logged out successfully." });
+		}
+
 		private IActionResult MethodHasNotSucceeded(IdentityResult result)
 		{
 			foreach (var error in result.Errors)

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginResponseModel } from '../models/login-response-model';
 import { Router } from '@angular/router';
+import { RegisterService } from './register.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,10 @@ export class AuthService {
   private isLoggedIn = false;
   private userRole: string | null = null;
 
-  constructor(private router: Router) {
-  }
+  constructor(
+    private router: Router,
+    private registerService: RegisterService
+  ) {}
 
   login(response: LoginResponseModel) {
     this.isLoggedIn = true;
@@ -21,6 +24,11 @@ export class AuthService {
   }
 
   logout() {
+    this.registerService.logout().subscribe({
+      next: () => {
+        console.log('Logged out successfully');
+      },
+    });
     this.isLoggedIn = false;
     this.userRole = null;
     localStorage.removeItem('isLoggedIn');
