@@ -26,15 +26,9 @@ export class AuthService {
   logout() {
     this.registerService.logout().subscribe({
       next: () => {
-        console.log('Logged out successfully');
+        this.clearSession();
       },
     });
-    this.isLoggedIn = false;
-    this.userRole = null;
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('email');
-    this.router.navigate(['/']);
   }
 
   getLoggedInStatus(): boolean {
@@ -44,5 +38,14 @@ export class AuthService {
 
   getUserRole(): string | null {
     return localStorage.getItem('userRole');
+  }
+
+  private clearSession(): void {
+    this.isLoggedIn = false;
+    this.userRole = null;
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('email');
+    this.router.navigate(['/']);
   }
 }
