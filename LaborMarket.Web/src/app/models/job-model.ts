@@ -10,3 +10,10 @@ export type JobDataModel = {
   employerId: number;
   employer: EmployerDataModel;
 };
+
+export type CreateJobModel ={
+  title: string;
+  description: string;
+  location: string;
+  employerEmail: string;
+}

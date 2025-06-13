@@ -28,18 +28,30 @@
     </div>
     <form class="login" *ngIf="userRole === 'Employer'">
       <p class="title">Създай обява</p>
-      <input type="text" placeholder="Име" name="name" autocomplete="off" />
+      <input
+        [(ngModel)]="createJobModel.title"
+        type="text"
+        placeholder="Име"
+        name="name"
+        autocomplete="off"
+      />
       <textarea
+        [(ngModel)]="createJobModel.description"
         class="description"
         type="text"
         placeholder="Описание"
         name="description"
         rows="3"
       ></textarea>
-      <input type="text" placeholder="Локация" name="location" />
+      <input
+        [(ngModel)]="createJobModel.location"
+        type="text"
+        placeholder="Локация"
+        name="location"
+      />
       <button>
         <i class="spinner"></i>
-        <span class="state">Създай</span>
+        <span class="state" (click)="onCreateJob()">Създай</span>
       </button>
     </form>
   </div>

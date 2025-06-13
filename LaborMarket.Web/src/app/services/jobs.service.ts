@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JobDataModel } from '../models/job-model';
+import { CreateJobModel, JobDataModel } from '../models/job-model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +13,9 @@ export class JobsService {
 
   getAllJobs(): Observable<JobDataModel[]> {
     return this.http.get<JobDataModel[]>(this.baseUrl + 'GetAllJobs');
+  }
+
+  createJob(job:CreateJobModel): Observable<JobDataModel> {
+    return this.http.post<JobDataModel>(this.baseUrl + 'CreateJob', job);
   }
 }
