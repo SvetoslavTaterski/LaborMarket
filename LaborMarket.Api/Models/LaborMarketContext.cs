@@ -1,10 +1,11 @@
 ﻿namespace LaborMarket.Api.Models
 {
-	using LaborMarket.Api.Models.AuthenticationModels;
-	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-	using Microsoft.EntityFrameworkCore;
+    using LaborMarket.Api.Models.AuthenticationModels;
+    using LaborMarket.Api.Models.JobModels;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-	public class LaborMarketContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class LaborMarketContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 	{
 		public LaborMarketContext(DbContextOptions<LaborMarketContext> options) : base(options) { }
 

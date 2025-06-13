@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using LaborMarket.Api.Models.JobModels;
 
 namespace LaborMarket.Api.Models
 {
-	public class ApplicationModel
+    public class ApplicationModel
 	{
 		[Key]
 		public int ApplicationId { get; set; }
