@@ -15,7 +15,11 @@ export class JobsService {
     return this.http.get<JobDataModel[]>(this.baseUrl + 'GetAllJobs');
   }
 
-  createJob(job:CreateJobModel): Observable<JobDataModel> {
+  createJob(job: CreateJobModel): Observable<JobDataModel> {
     return this.http.post<JobDataModel>(this.baseUrl + 'CreateJob', job);
+  }
+
+  deleteJob(jobId: number): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + 'DeleteJob?id=' + jobId);
   }
 }

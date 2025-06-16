@@ -192,3 +192,18 @@ mat-paginator {
     flex-direction: row;
     gap: 3em;
   }
+
+  .delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px; /* Padding for better spacing */
+  cursor: pointer;
+  font-size: 14px; /* Adjust font size */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+
+  &:hover {
+    background-color: #e60000; /* Darker red on hover */
+  }
+}

@@ -4,24 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { CreateUserModel } from '../../../models/user-model';
 import { CreateEmployerModel } from '../../../models/employer-model';
 import { RegisterService } from '../../../services/register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.scss'
+  styleUrl: './register-page.component.scss',
 })
 export class RegisterPageComponent {
-  userModel: CreateUserModel ={
+  userModel: CreateUserModel = {
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     phoneNumber: '',
     role: 'user',
-    createdAt: new Date().toISOString() // Set current date as createdAt
-  }
+    createdAt: new Date().toISOString(), // Set current date as createdAt
+  };
 
   employerModel: CreateEmployerModel = {
     companyName: '',
@@ -29,30 +30,33 @@ export class RegisterPageComponent {
     contactPhone: '',
     password: '',
     role: 'employer',
-  }
+  };
 
-  constructor(private registerService: RegisterService) {
-  }
+  constructor(
+    private registerService: RegisterService,
+    private router: Router
+  ) {}
 
   createUser() {
-    if(this.userModel.role === 'user'){
+    if (this.userModel.role === 'user') {
       this.registerService.registerUser(this.userModel).subscribe({
         next: (response) => {
           console.log('User registered successfully:', response);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Error registering user:', error);
-        }
+        },
       });
-    }
-    else if(this.userModel.role === 'employer'){
+    } else if (this.userModel.role === 'employer') {
       this.registerService.registerEmployer(this.employerModel).subscribe({
         next: (response) => {
           console.log('Employer registered successfully:', response);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Error registering employer:', error);
-        }
+        },
       });
     }
   }

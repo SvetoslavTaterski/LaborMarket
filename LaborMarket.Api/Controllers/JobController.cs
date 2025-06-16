@@ -19,7 +19,23 @@ namespace LaborMarket.Api.Controllers
 		[HttpGet("GetAllJobs")]
 		public async Task<ActionResult<IEnumerable<JobModel>>> GetAllJobs()
 		{
-			return await _context.Jobs.ToListAsync();
+				return await _context.Jobs
+									.Include(job => job.Employer) // Include Employer data
+									.Select(job => new JobModel
+									{
+										JobId = job.JobId,
+										Title = job.Title,
+										Description = job.Description,
+										Company = job.Company,
+										Location = job.Location,
+										PostedAt = job.PostedAt,
+										EmployerId = job.EmployerId,
+										Employer = new EmployerModel
+										{
+											ContactEmail = job.Employer.ContactEmail // Include ContactEmail
+										}
+									})
+									.ToListAsync();
 		}
 
 		[HttpPost("CreateJob")]
@@ -49,6 +65,20 @@ namespace LaborMarket.Api.Controllers
 			await _context.SaveChangesAsync();
 
 			return Ok(newJob);
+		}
+
+		[HttpDelete("DeleteJob")]
+		public async Task<IActionResult> DeleteJob(int id)
+		{
+			var job = await _context.Jobs.FindAsync(id);
+
+			if (job == null)
+				return NotFound();
+
+			_context.Jobs.Remove(job);
+			await _context.SaveChangesAsync();
+
+			return NoContent();
 		}
 	}
 }

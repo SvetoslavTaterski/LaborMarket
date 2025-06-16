@@ -18,14 +18,16 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MatTableModule,
     MatPaginator,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './positions-page.component.html',
   styleUrl: './positions-page.component.scss',
 })
 export class PositionsPageComponent implements OnInit {
   public userRole: string | null = null;
-   public createJobModel: CreateJobModel = {
+  public loggedInEmail: string | null = null;
+
+  public createJobModel: CreateJobModel = {
     title: '',
     description: '',
     location: '',
@@ -37,6 +39,7 @@ export class PositionsPageComponent implements OnInit {
     'company',
     'location',
     'postedAt',
+    'actions',
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,9 +48,13 @@ export class PositionsPageComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = localStorage.getItem('userRole');
+    this.loggedInEmail = localStorage.getItem('email');
     this.jobService.getAllJobs().subscribe({
       next: (response) => {
-        this.jobsData.data = response;
+        this.jobsData.data = response.map((job) => ({
+          ...job,
+          isCreator: job.employer?.contactEmail === this.loggedInEmail, // Add a flag for creator
+        }));
       },
       error: (err) => {
         console.error('Failed to load jobs:', err);
@@ -67,6 +74,18 @@ export class PositionsPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to create job:', err);
+      },
+    });
+  }
+
+  onDelete(jobId: number) {
+    this.jobService.deleteJob(jobId).subscribe({
+      next: () => {
+        console.log('Job deleted successfully:', jobId);
+        this.jobsData.data = this.jobsData.data.filter((job) => job.jobId !== jobId);
+      },
+      error: (err) => {
+        console.error('Failed to delete job:', err);
       },
     });
   }
