@@ -8,6 +8,7 @@ import { FooterComponent } from '../../footer/footer.component';
 import { CreateJobModel, JobDataModel } from '../../../models/job-model';
 import { JobsService } from '../../../services/jobs.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-positions-page',
@@ -44,7 +45,7 @@ export class PositionsPageComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private jobService: JobsService) {}
+  constructor(private jobService: JobsService, private router: Router) {}
 
   ngOnInit() {
     this.userRole = localStorage.getItem('userRole');
@@ -66,11 +67,17 @@ export class PositionsPageComponent implements OnInit {
     this.jobsData.paginator = this.paginator;
   }
 
+  onRowDblClick(jobId: number) {
+    console.log('Row double-clicked:', jobId);
+    this.router.navigate(['/position', jobId]);
+  }
+
   onCreateJob() {
     this.createJobModel.employerEmail = localStorage.getItem('email') || ''; // Set employer email
     this.jobService.createJob(this.createJobModel).subscribe({
       next: () => {
         console.log('Job created successfully:', this.createJobModel);
+        window.location.reload();
       },
       error: (err) => {
         console.error('Failed to create job:', err);
@@ -82,7 +89,9 @@ export class PositionsPageComponent implements OnInit {
     this.jobService.deleteJob(jobId).subscribe({
       next: () => {
         console.log('Job deleted successfully:', jobId);
-        this.jobsData.data = this.jobsData.data.filter((job) => job.jobId !== jobId);
+        this.jobsData.data = this.jobsData.data.filter(
+          (job) => job.jobId !== jobId
+        );
       },
       error: (err) => {
         console.error('Failed to delete job:', err);

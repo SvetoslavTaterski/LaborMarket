@@ -38,6 +38,17 @@ namespace LaborMarket.Api.Controllers
 									.ToListAsync();
 		}
 
+		[HttpGet("GetJobById")]
+		public async Task<ActionResult<JobModel>> GetJobById(int jobId)
+		{
+			var foundJob = await _context.Jobs.FindAsync(jobId);
+
+			if(foundJob == null)
+				return NotFound();
+
+			return foundJob;
+		}
+
 		[HttpPost("CreateJob")]
 		public async Task<ActionResult<JobModel>> CreateJob(CreateJobModel jobModel)
 		{
@@ -68,9 +79,9 @@ namespace LaborMarket.Api.Controllers
 		}
 
 		[HttpDelete("DeleteJob")]
-		public async Task<IActionResult> DeleteJob(int id)
+		public async Task<IActionResult> DeleteJob(int jobId)
 		{
-			var job = await _context.Jobs.FindAsync(id);
+			var job = await _context.Jobs.FindAsync(jobId);
 
 			if (job == null)
 				return NotFound();

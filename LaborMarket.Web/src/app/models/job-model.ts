@@ -17,3 +17,5 @@ export type CreateJobModel ={
   location: string;
   employerEmail: string;
 }
+
+export type JobSummaryModel = Omit<JobDataModel, 'employer'>;
