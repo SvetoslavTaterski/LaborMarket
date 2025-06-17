@@ -31,5 +31,16 @@ namespace LaborMarket.Api.Controllers
 
 			return employer;
 		}
+
+		[HttpGet("GetEmployerById")]
+		public async Task<ActionResult<EmployerModel>> GetEmployerById(int userId)
+		{
+			var employer = await _context.Employers.FirstOrDefaultAsync(u => u.EmployerId == userId);
+
+			if (employer == null)
+				return NotFound();
+
+			return employer;
+		}
 	}
 }

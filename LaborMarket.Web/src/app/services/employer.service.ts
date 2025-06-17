@@ -15,11 +15,20 @@ export class EmployerService {
     return this.http.get<EmployerDataModel[]>(this.baseUrl + 'GetAllEmployers');
   }
 
-   getEmployerByEmail(): Observable<EmployerDataModel> {
-      const email = localStorage.getItem('email');
-      if (!email) {
-        throw new Error('Email not found in local storage');
-      }
-      return this.http.get<EmployerDataModel>(`${this.baseUrl}GetEmployerByEmail?userEmail=${email}`);
-    }
+  getEmployerByEmail(): Observable<EmployerDataModel> {
+    const email = localStorage.getItem('email');
+
+    if (!email)
+      throw new Error('Email not found in local storage');
+
+    return this.http.get<EmployerDataModel>(
+      `${this.baseUrl}GetEmployerByEmail?userEmail=${email}`
+    );
+  }
+
+  getEmployerById(employerId: number): Observable<EmployerDataModel> {
+    return this.http.get<EmployerDataModel>(
+      `${this.baseUrl}GetEmployerById?userId=${employerId}`
+    );
+  }
 }

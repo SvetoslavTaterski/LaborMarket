@@ -1,18 +1,22 @@
 <div class="wrapper">
   <div class="job-detail-container">
-    <h2>{{ jobData.title }}</h2>
+    <h2>Позиция:  {{ jobData.title }}</h2>
     <div class="job-detail">
       <div class="job-detail-item">
         <strong>Компания:</strong>
         <span>{{ jobData.company }}</span>
       </div>
       <div class="job-detail-item">
-        <strong>Локация:</strong>
-        <span>{{ jobData.location }}</span>
+        <strong>Телефон за връзка</strong>
+        <span>{{ employerData.contactPhone }}</span>
       </div>
       <div class="job-detail-item">
-        <strong>Публикувана на:</strong>
-        <span>{{ jobData.postedAt | date }}</span>
+        <strong>Email</strong>
+        <span>{{ employerData.contactEmail }}</span>
+      </div>
+      <div class="job-detail-item">
+        <strong>Локация:</strong>
+        <span>{{ jobData.location }}</span>
       </div>
       <div class="job-description">
         <h3>Описание:</h3>

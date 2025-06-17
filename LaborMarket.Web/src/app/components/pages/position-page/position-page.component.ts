@@ -3,7 +3,9 @@ import { JobSummaryModel } from '../../../models/job-model';
 import { CommonModule } from '@angular/common';
 import { JobsService } from '../../../services/jobs.service';
 import { ActivatedRoute } from '@angular/router';
-import { HeaderComponent } from "../../header/header.component";
+import { HeaderComponent } from '../../header/header.component';
+import { EmployerDataModel } from '../../../models/employer-model';
+import { EmployerService } from '../../../services/employer.service';
 
 @Component({
   selector: 'app-position-page',
@@ -14,11 +16,15 @@ import { HeaderComponent } from "../../header/header.component";
 })
 export class PositionPageComponent {
   public jobData: JobSummaryModel = {} as JobSummaryModel;
+  public employerData: EmployerDataModel = {} as EmployerDataModel;
   public jobId: number | null = null;
 
-  constructor(private jobService: JobsService, private route: ActivatedRoute) {}
+  constructor(
+    private jobService: JobsService,
+    private route: ActivatedRoute,
+    private employerService: EmployerService
+  ) {}
 
-  //TODO: Пипни го малко по-добре стилизирай страницата и оправи кода в ngOnInit
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.jobId = +params['id'];
@@ -28,6 +34,14 @@ export class PositionPageComponent {
         this.jobService.getJobById(this.jobId).subscribe({
           next: (data) => {
             this.jobData = data;
+            this.employerService.getEmployerById(data.employerId).subscribe({
+              next: (employer) => {
+                this.employerData = employer;
+              },
+              error: (err) => {
+                console.error('Failed to fetch employer data:', err);
+              }
+            });
             console.log('Job Data:', this.jobData); // Debugging
           },
           error: (err) => {
