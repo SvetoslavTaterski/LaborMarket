@@ -85,12 +85,12 @@ export class PositionsPageComponent implements OnInit {
     });
   }
 
-  onDelete(jobId: number) {
-    this.jobService.deleteJob(jobId).subscribe({
+  onDelete(jobModel: JobDataModel) {
+    this.jobService.deleteJob(jobModel.jobId).subscribe({
       next: () => {
-        console.log('Job deleted successfully:', jobId);
+        console.log('Job deleted successfully:', jobModel.jobId);
         this.jobsData.data = this.jobsData.data.filter(
-          (job) => job.jobId !== jobId
+          (job) => job.jobId !== jobModel.jobId
         );
       },
       error: (err) => {

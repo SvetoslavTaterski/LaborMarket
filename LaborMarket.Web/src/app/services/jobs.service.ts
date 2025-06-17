@@ -24,6 +24,6 @@ export class JobsService {
   }
 
   deleteJob(jobId: number): Observable<void> {
-    return this.http.delete<void>(this.baseUrl + 'DeleteJob?id=' + jobId);
+    return this.http.delete<void>(this.baseUrl + 'DeleteJob?jobId=' + jobId);
   }
 }

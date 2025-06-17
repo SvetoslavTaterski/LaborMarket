@@ -30,9 +30,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns" (dblclick)="onRowDblClick(row.jobId)"></tr>
       </table>
-      <mat-paginator [pageSize]="6" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
     </div>
-    <form class="login" *ngIf="userRole === 'Employer'">
+    <form class="login" *ngIf="userRole === 'Employer'" #jobForm="ngForm">
       <p class="title">Създай обява</p>
       <input
         [(ngModel)]="createJobModel.title"
@@ -40,6 +40,8 @@
         placeholder="Име"
         name="name"
         autocomplete="off"
+        required
+        #title="ngModel"
       />
       <textarea
         [(ngModel)]="createJobModel.description"
@@ -48,6 +50,8 @@
         placeholder="Описание"
         name="description"
         rows="3"
+        required
+        #description="ngModel"
       ></textarea>
       <input
         [(ngModel)]="createJobModel.location"
@@ -55,8 +59,10 @@
         placeholder="Локация"
         name="location"
         autocomplete="off"
+        required
+        #location="ngModel"
       />
-      <button  (click)="onCreateJob()">
+      <button [disabled]="jobForm.invalid"  (click)="onCreateJob()">
         <i class="spinner"></i>
         <span class="state">Създай</span>
       </button>
