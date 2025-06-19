@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfilePageComponent } from './app/components/pages/profile-page/profile-page.component';
 import { PositionPageComponent } from './app/components/pages/position-page/position-page.component';
+import { EditPositionPageComponent } from './app/components/pages/edit-position-page/edit-position-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }, // Default route
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'sign-in', component: RegisterPageComponent },
   { path: 'profile', component: ProfilePageComponent},
   { path: 'position/:id', component: PositionPageComponent },
+  { path: 'edit-position/:id', component: EditPositionPageComponent },
   { path: '**', redirectTo: '' } // Redirect unmatched routes to the homepage
 ];
 

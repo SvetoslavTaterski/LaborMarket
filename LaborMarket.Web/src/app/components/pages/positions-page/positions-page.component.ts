@@ -98,4 +98,8 @@ export class PositionsPageComponent implements OnInit {
       },
     });
   }
+
+  onEdit(jobModel: JobDataModel) {
+    this.router.navigate(['/edit-position', jobModel.jobId]);
+  }
 }

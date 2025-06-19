@@ -1,0 +1,63 @@
+<div class="wrapper">
+  <div class="job-detail-container">
+    <h2>Редактирай позиция</h2>
+    <form (ngSubmit)="onSave()" #editForm="ngForm">
+      <div class="job-detail">
+        <div class="job-detail-item">
+          <strong>Име на позиция:</strong>
+          <input
+            type="text"
+            [(ngModel)]="jobData.title"
+            name="title"
+            required
+            class="edit-input"
+          />
+        </div>
+        <div class="job-detail-item">
+          <strong>Телефон за връзка</strong>
+          <input
+            type="text"
+            [(ngModel)]="employerData.contactPhone"
+            name="contactPhone"
+            required
+            class="edit-input"
+          />
+        </div>
+        <div class="job-detail-item">
+          <strong>Email</strong>
+          <input
+            type="email"
+            [(ngModel)]="employerData.contactEmail"
+            name="contactEmail"
+            required
+            class="edit-input"
+          />
+        </div>
+        <div class="job-detail-item">
+          <strong>Локация:</strong>
+          <input
+            type="text"
+            [(ngModel)]="jobData.location"
+            name="location"
+            required
+            class="edit-input"
+          />
+        </div>
+        <div class="job-description">
+          <h3>Описание:</h3>
+          <textarea
+            [(ngModel)]="jobData.description"
+            name="description"
+            rows="5"
+            required
+            class="edit-textarea"
+          ></textarea>
+        </div>
+      </div>
+      <div class="button-row">
+        <button type="button" (click)="onGoBack()">Назад</button>
+        <button type="submit" [disabled]="editForm.invalid">Запази</button>
+      </div>
+    </form>
+  </div>
+</div>
