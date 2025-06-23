@@ -52,8 +52,16 @@ export class EditPositionPageComponent {
     });
   }
 
-  onSave(){
-    console.log('Saving job data:', this.jobData);
+  onSave(){ 
+      this.jobService.editJob(this.jobData).subscribe({
+        next: (response) => {
+          console.log('Job updated successfully:', response);
+          // Optionally, navigate back or show a success message
+        },
+        error: (err) => {
+          console.error('Failed to update job:', err);
+        },
+      });
   }
 
   onGoBack(): void {

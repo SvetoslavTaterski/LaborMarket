@@ -78,6 +78,27 @@ namespace LaborMarket.Api.Controllers
 			return Ok(newJob);
 		}
 
+		[HttpPut("EditJob")]
+		public async Task<IActionResult> EditJob(EditJobModel jobModel)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var jobToEdit = await _context.Jobs.FindAsync(jobModel.JobId);
+
+			if (jobToEdit == null)
+				return NotFound();
+
+			jobToEdit.Title = jobModel.Title;
+			jobToEdit.Description = jobModel.Description;
+			jobToEdit.Location = jobModel.Location;
+
+			_context.Jobs.Update(jobToEdit);
+			await _context.SaveChangesAsync();
+
+			return Ok();
+		}
+
 		[HttpDelete("DeleteJob")]
 		public async Task<IActionResult> DeleteJob(int jobId)
 		{
