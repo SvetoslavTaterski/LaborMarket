@@ -229,3 +229,19 @@ mat-paginator {
     background-color: #ffb300;
   }
 }
+
+.view-button {
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1769aa;
+  }
+}
