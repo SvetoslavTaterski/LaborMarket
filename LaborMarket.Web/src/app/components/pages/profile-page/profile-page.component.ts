@@ -5,21 +5,24 @@ import { UserService } from '../../../services/user.service';
 import { UserDataModel } from '../../../models/user-model';
 import { EmployerDataModel } from '../../../models/employer-model';
 import { EmployerService } from '../../../services/employer.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, FormsModule, CommonModule],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
 })
 export class ProfilePageComponent {
-  private userRole: string | null = null;
+  public userRole: string | null = null;
 
   public displayModel = {
     displayName: '',
     email: '',
     phoneNumber: '',
+    description: ''
   };
 
   constructor(
@@ -38,6 +41,7 @@ export class ProfilePageComponent {
             displayName: user.firstName + ' ' + user.lastName,
             email: user.email,
             phoneNumber: user.phoneNumber,
+            description: "" //TODO: Add description to the models in frontend and backend
           };
         },
         error: (err) => {
@@ -51,6 +55,7 @@ export class ProfilePageComponent {
             displayName: employer.companyName,
             email: employer.contactEmail,
             phoneNumber: employer.contactPhone,
+            description: "ASDASD" //TODO: Add description to the models in frontend and backend
           };
         },
         error: (err) => {
@@ -58,5 +63,9 @@ export class ProfilePageComponent {
         },
       });
     }
+  }
+
+  onSave(){
+    console.log('Saving profile changes:', this.displayModel);
   }
 }
