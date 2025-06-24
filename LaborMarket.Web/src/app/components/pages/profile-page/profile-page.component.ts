@@ -41,7 +41,7 @@ export class ProfilePageComponent {
             displayName: user.firstName + ' ' + user.lastName,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            description: "" //TODO: Add description to the models in frontend and backend
+            description: user.cv 
           };
         },
         error: (err) => {
@@ -55,7 +55,7 @@ export class ProfilePageComponent {
             displayName: employer.companyName,
             email: employer.contactEmail,
             phoneNumber: employer.contactPhone,
-            description: "ASDASD" //TODO: Add description to the models in frontend and backend
+            description: employer.description
           };
         },
         error: (err) => {
@@ -66,6 +66,24 @@ export class ProfilePageComponent {
   }
 
   onSave(){
-    console.log('Saving profile changes:', this.displayModel);
+    if (this.userRole === 'User') {
+      this.userService.setUserCv(this.displayModel.description).subscribe({
+        next: () => {
+          console.log('CV updated successfully');
+        },
+        error: (err) => {
+          console.error('Error updating CV:', err);
+        }
+      });
+    } else if (this.userRole === 'Employer') {
+      this.employerService.setEmployerDescription(this.displayModel.description).subscribe({
+        next: () => {
+          console.log('Description updated successfully');
+        },
+        error: (err) => {
+          console.error('Error updating description:', err);
+        }
+      });
+    }
   }
 }

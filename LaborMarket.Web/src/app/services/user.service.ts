@@ -17,9 +17,19 @@ export class UserService {
 
   getUserByEmail(): Observable<UserDataModel> {
     const email = localStorage.getItem('email');
-    if (!email) {
+
+    if (!email) 
       throw new Error('Email not found in local storage');
-    }
+    
     return this.http.get<UserDataModel>(`${this.baseUrl}GetUserByEmail?userEmail=${email}`);
+  }
+
+  setUserCv(cv: string): Observable<void> {
+    const email = localStorage.getItem('email');
+
+    if (!email)
+      throw new Error('Email not found in local storage');
+
+    return this.http.put<void>(`${this.baseUrl}SetUserCv?userEmail=${email}&cv=${cv}`, null);
   }
 }

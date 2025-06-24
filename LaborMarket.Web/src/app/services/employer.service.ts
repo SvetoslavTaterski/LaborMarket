@@ -18,8 +18,7 @@ export class EmployerService {
   getEmployerByEmail(): Observable<EmployerDataModel> {
     const email = localStorage.getItem('email');
 
-    if (!email)
-      throw new Error('Email not found in local storage');
+    if (!email) throw new Error('Email not found in local storage');
 
     return this.http.get<EmployerDataModel>(
       `${this.baseUrl}GetEmployerByEmail?userEmail=${email}`
@@ -29,6 +28,17 @@ export class EmployerService {
   getEmployerById(employerId: number): Observable<EmployerDataModel> {
     return this.http.get<EmployerDataModel>(
       `${this.baseUrl}GetEmployerById?userId=${employerId}`
+    );
+  }
+
+  setEmployerDescription(description: string): Observable<void> {
+    const email = localStorage.getItem('email');
+
+    if (!email) throw new Error('Email not found in local storage');
+
+    return this.http.put<void>(
+      `${this.baseUrl}SetEmployerDescription?employerEmail=${email}&description=${description}`,
+      null
     );
   }
 }

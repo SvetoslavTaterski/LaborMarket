@@ -6,6 +6,7 @@ export type UserDataModel = {
   phoneNumber: string;
   passwordHash: string;
   createdAt: string;
+  cv: string;
 };
 
 export type CreateUserModel = {

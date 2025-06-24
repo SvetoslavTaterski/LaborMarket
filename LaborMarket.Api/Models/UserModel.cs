@@ -14,5 +14,6 @@ namespace LaborMarket.Api.Models
 		public string PhoneNumber { get; set; } = null!;
 		public string PasswordHash { get; set; } = null!;
 		public DateTime CreatedAt { get; set; }
+		public string? CV { get; set; }
 	}
 }

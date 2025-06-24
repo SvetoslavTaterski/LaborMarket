@@ -9,5 +9,6 @@ namespace LaborMarket.Api.Models
 		public string CompanyName { get; set; } = null!;
 		public string ContactEmail { get; set; } = null!;
 		public string ContactPhone { get; set; } = null!;
+		public string? Description { get; set; }
 	}
 }

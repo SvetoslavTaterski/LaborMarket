@@ -42,5 +42,20 @@ namespace LaborMarket.Api.Controllers
 
 			return employer;
 		}
+
+		[HttpPut("SetEmployerDescription")]
+		public async Task<ActionResult> SetEmployerDescription(string employerEmail,  string description)
+		{
+			var employer = await _context.Employers.FirstOrDefaultAsync(u => u.ContactEmail == employerEmail);
+
+			if (employer == null)
+				return NotFound();
+
+			employer.Description = description;
+
+			await _context.SaveChangesAsync();
+
+			return Ok();
+		}
 	}
 }

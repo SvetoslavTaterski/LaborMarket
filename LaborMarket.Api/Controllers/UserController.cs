@@ -31,5 +31,20 @@ namespace LaborMarket.Api.Controllers
 
 			return user;
 		}
+
+		[HttpPut("SetUserCV")]
+		public async Task<ActionResult> SetUserCV(string userEmail, string cv)
+		{
+			var user = await _context.Workers.FirstOrDefaultAsync(u => u.Email == userEmail);
+
+			if (user == null)
+				return NotFound();
+
+			user.CV = cv;
+
+			await _context.SaveChangesAsync();
+
+			return Ok();
+		}
 	}
 }
