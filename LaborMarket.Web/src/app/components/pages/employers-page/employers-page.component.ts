@@ -3,8 +3,9 @@ import { EmployerService } from '../../../services/employer.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { EmployerDataModel } from '../../../models/employer-model';
 import { MatPaginator } from '@angular/material/paginator';
-import { HeaderComponent } from "../../header/header.component";
-import { FooterComponent } from "../../footer/footer.component";
+import { HeaderComponent } from '../../header/header.component';
+import { FooterComponent } from '../../footer/footer.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employers-page',
@@ -15,11 +16,18 @@ import { FooterComponent } from "../../footer/footer.component";
 })
 export class EmployersPageComponent implements OnInit {
   public employersData = new MatTableDataSource<EmployerDataModel>([]);
-  public displayedColumns: string[] = ['companyName', 'companyEmail', 'companyPhone'];
+  public displayedColumns: string[] = [
+    'companyName',
+    'companyEmail',
+    'companyPhone',
+  ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private employerService: EmployerService) {}
+  constructor(
+    private employerService: EmployerService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.employerService.getAllEmployers().subscribe({
@@ -33,6 +41,11 @@ export class EmployersPageComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-      this.employersData.paginator = this.paginator;
-    }
+    this.employersData.paginator = this.paginator;
+  }
+
+  onRowDblClick(rowId: number) {
+    console.log('Row double clicked:', rowId);
+    this.router.navigate(['/employer', rowId]);
+  }
 }

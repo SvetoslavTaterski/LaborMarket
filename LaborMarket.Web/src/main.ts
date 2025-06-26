@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfilePageComponent } from './app/components/pages/profile-page/profile-page.component';
 import { PositionPageComponent } from './app/components/pages/position-page/position-page.component';
 import { EditPositionPageComponent } from './app/components/pages/edit-position-page/edit-position-page.component';
+import { EmployerDetailsPageComponent } from './app/components/pages/employer-details-page/employer-details-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }, // Default route
@@ -22,10 +23,11 @@ const routes: Routes = [
   { path: 'employers', component: EmployersPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'sign-in', component: RegisterPageComponent },
-  { path: 'profile', component: ProfilePageComponent},
+  { path: 'profile', component: ProfilePageComponent },
   { path: 'position/:id', component: PositionPageComponent },
   { path: 'edit-position/:id', component: EditPositionPageComponent },
-  { path: '**', redirectTo: '' } // Redirect unmatched routes to the homepage
+  { path: 'employer/:id', component: EmployerDetailsPageComponent },
+  { path: '**', redirectTo: '' }, // Redirect unmatched routes to the homepage
 ];
 
 bootstrapApplication(AppComponent, {
