@@ -3,7 +3,6 @@ import { JobSummaryModel } from '../../../models/job-model';
 import { CommonModule } from '@angular/common';
 import { JobsService } from '../../../services/jobs.service';
 import { ActivatedRoute } from '@angular/router';
-import { HeaderComponent } from '../../header/header.component';
 import { EmployerDataModel } from '../../../models/employer-model';
 import { EmployerService } from '../../../services/employer.service';
 

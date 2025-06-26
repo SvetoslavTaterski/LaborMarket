@@ -1,1 +1,29 @@
-<p>employer-details-page works!</p>
+<div class="wrapper">
+  <main>
+    <section class="employer-detail-container">
+      <div class="employer-header">
+        <img
+          src="assets/images/1320909.png"
+          alt="Profile Picture"
+          class="profile-picture"
+        />
+        <h2>{{ employer.companyName }}</h2>
+      </div>
+      <div class="employer-detail">
+        <div class="employer-detail-item">
+          <strong>Имейл:</strong>
+          <span>{{ employer.contactEmail }}</span>
+        </div>
+        <div class="employer-detail-item">
+          <strong>Телефон:</strong>
+          <span>{{ employer.contactPhone }}</span>
+        </div>
+        <div class="employer-description">
+          <strong>Описание:</strong>
+          <p>{{ employer.description }}</p>
+        </div>
+      </div>
+      <button (click)="onBack()">Назад</button>
+    </section>
+  </main>
+</div>
