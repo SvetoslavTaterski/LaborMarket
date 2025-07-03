@@ -20,7 +20,7 @@
         </div>
         <div class="employer-description">
           <strong>Описание:</strong>
-          <p>{{ employer.description }}</p>
+          <p>{{ employer.description || 'Няма информация' }}</p>
         </div>
       </div>
       <button (click)="onBack()">Назад</button>
