@@ -12,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Configure Cloudinary
+builder.Services.AddSingleton(x =>
+{
+	var config = builder.Configuration.GetSection("Cloudinary");
+	return new CloudinaryDotNet.Cloudinary(new CloudinaryDotNet.Account(
+		config["CloudName"], config["ApiKey"], config["ApiSecret"]));
+});
+
 builder.Services.AddDbContext<LaborMarketContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

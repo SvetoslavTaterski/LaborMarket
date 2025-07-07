@@ -3,6 +3,20 @@
   <div class="card">
     <div class="card-details">
       <i class="fa-solid fa-user profile-icon"></i>
+      <label
+        for="profileImageInput"
+        class="change-profile-link"
+        style="cursor: pointer"
+      >
+        Смени профилна снимка
+        <input
+          type="file"
+          id="profileImageInput"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          style="display: none"
+        />
+      </label>
       <div>
         <p class="text-body">
           <i class="fa-solid fa-user"></i>{{ displayModel.displayName }}
@@ -15,16 +29,18 @@
         </p>
       </div>
     </div>
-    <button class="card-button" (click)="this.authService.logout()">Изход</button>
+    <button class="card-button" (click)="this.authService.logout()">
+      Изход
+    </button>
   </div>
-   <div class="description-box">
-      <h3 *ngIf="userRole === 'Employer'">Описание на работодателя</h3>
-      <h3 *ngIf="userRole === 'User'">CV</h3>
-      <textarea
-        [(ngModel)]="displayModel.description"
-        class="description-textarea"
-        rows="8"
-      ></textarea>
-      <button class="save-desc-btn" (click)="onSave()">Запази описанието</button>
-    </div>
+  <div class="description-box">
+    <h3 *ngIf="userRole === 'Employer'">Описание на работодателя</h3>
+    <h3 *ngIf="userRole === 'User'">CV</h3>
+    <textarea
+      [(ngModel)]="displayModel.description"
+      class="description-textarea"
+      rows="8"
+    ></textarea>
+    <button class="save-desc-btn" (click)="onSave()">Запази описанието</button>
+  </div>
 </main>

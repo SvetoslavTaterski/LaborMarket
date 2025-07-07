@@ -17,12 +17,13 @@ import { CommonModule } from '@angular/common';
 })
 export class ProfilePageComponent {
   public userRole: string | null = null;
+  selectedFile: File | null = null;
 
   public displayModel = {
     displayName: '',
     email: '',
     phoneNumber: '',
-    description: ''
+    description: '',
   };
 
   constructor(
@@ -31,6 +32,7 @@ export class ProfilePageComponent {
     private employerService: EmployerService
   ) {}
 
+  //TODO: Change model to display profile picutre
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
 
@@ -41,7 +43,7 @@ export class ProfilePageComponent {
             displayName: user.firstName + ' ' + user.lastName,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            description: user.cv 
+            description: user.cv,
           };
         },
         error: (err) => {
@@ -55,7 +57,7 @@ export class ProfilePageComponent {
             displayName: employer.companyName,
             email: employer.contactEmail,
             phoneNumber: employer.contactPhone,
-            description: employer.description
+            description: employer.description,
           };
         },
         error: (err) => {
@@ -65,7 +67,7 @@ export class ProfilePageComponent {
     }
   }
 
-  onSave(){
+  onSave() {
     if (this.userRole === 'User') {
       this.userService.setUserCv(this.displayModel.description).subscribe({
         next: () => {
@@ -73,15 +75,33 @@ export class ProfilePageComponent {
         },
         error: (err) => {
           console.error('Error updating CV:', err);
-        }
+        },
       });
     } else if (this.userRole === 'Employer') {
-      this.employerService.setEmployerDescription(this.displayModel.description).subscribe({
-        next: () => {
-          console.log('Description updated successfully');
+      this.employerService
+        .setEmployerDescription(this.displayModel.description)
+        .subscribe({
+          next: () => {
+            console.log('Description updated successfully');
+          },
+          error: (err) => {
+            console.error('Error updating description:', err);
+          },
+        });
+    }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.employerService.uploadProfileImage(file).subscribe({
+        next: (response) => {
+          console.log('Image uploaded successfully', response);
         },
         error: (err) => {
-          console.error('Error updating description:', err);
+          // Optionally, show an error message
+          console.error('Image upload failed', err);
         }
       });
     }

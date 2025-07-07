@@ -114,3 +114,16 @@ main {
 .save-desc-btn:hover {
   background: #1769aa;
 }
+
+.change-profile-link {
+  margin-bottom: 20px;
+  color: #2196f3;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: inline-block;
+}
+
+.change-profile-link:hover {
+  color: #1565c0;
+}

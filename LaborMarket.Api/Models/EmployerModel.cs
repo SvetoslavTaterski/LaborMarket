@@ -10,5 +10,6 @@ namespace LaborMarket.Api.Models
 		public string ContactEmail { get; set; } = null!;
 		public string ContactPhone { get; set; } = null!;
 		public string? Description { get; set; }
+		public string? ProfileImageUrl { get; set; }
 	}
 }

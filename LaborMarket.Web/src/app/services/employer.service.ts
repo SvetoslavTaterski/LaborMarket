@@ -41,4 +41,17 @@ export class EmployerService {
       null
     );
   }
+
+  uploadProfileImage(file: File): Observable<{ imageUrl: string }> {
+  const email = localStorage.getItem('email');
+  if (!email) throw new Error('Email not found in local storage');
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return this.http.post<{ imageUrl: string }>(
+    `${this.baseUrl}UploadProfileImage?employerEmail=${email}`,
+    formData
+  );
+}
 }

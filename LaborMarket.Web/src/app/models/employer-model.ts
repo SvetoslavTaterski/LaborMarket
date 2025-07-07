@@ -3,7 +3,8 @@ export type EmployerDataModel = {
   companyName: string;
   contactEmail: string;
   contactPhone: string;
-  description: string
+  description: string;
+  profileImageUrl: string;
 };
 
 export type CreateEmployerModel = {

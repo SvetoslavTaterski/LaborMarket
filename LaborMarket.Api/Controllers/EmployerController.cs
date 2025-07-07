@@ -1,6 +1,9 @@
 ﻿using LaborMarket.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Http;
 
 namespace LaborMarket.Api.Controllers
 {
@@ -9,10 +12,13 @@ namespace LaborMarket.Api.Controllers
 	public class EmployerController : Controller
 	{
 		private readonly LaborMarketContext _context;
+		private readonly Cloudinary _cloudinary;
 
-		public EmployerController(LaborMarketContext context)
+
+		public EmployerController(LaborMarketContext context, Cloudinary cloudinary)
 		{
 			_context = context;
+			_cloudinary = cloudinary;
 		}
 
 		[HttpGet("GetAllEmployers")]
@@ -56,6 +62,29 @@ namespace LaborMarket.Api.Controllers
 			await _context.SaveChangesAsync();
 
 			return Ok();
+		}
+
+		[HttpPost("UploadProfileImage")]
+		public async Task<IActionResult> UploadProfileImage([FromQuery] string employerEmail, IFormFile file)
+		{
+			if (file == null || file.Length == 0)
+				return BadRequest("No file uploaded.");
+
+			var employer = await _context.Employers.FirstOrDefaultAsync(e => e.ContactEmail == employerEmail);
+			if (employer == null)
+				return NotFound();
+
+			var uploadParams = new ImageUploadParams
+			{
+				File = new FileDescription(file.FileName, file.OpenReadStream()),
+				Folder = "employer_profile_pics"
+			};
+			var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+			employer.ProfileImageUrl = uploadResult.SecureUrl.ToString();
+			await _context.SaveChangesAsync();
+
+			return Ok(new { imageUrl = employer.ProfileImageUrl });
 		}
 	}
 }
