@@ -1,0 +1,29 @@
+<div class="user-wrapper">
+  <main>
+    <section class="user-detail-container">
+      <div class="user-header">
+        <img
+          src="assets/images/1320909.png"
+          alt="Profile Picture"
+          class="profile-picture"
+        />
+        <h2>{{ user.firstName + user.lastName }}</h2>
+      </div>
+      <div class="user-detail">
+        <div class="user-detail-item">
+          <strong>Имейл:</strong>
+          <span>{{ user.email }}</span>
+        </div>
+        <div class="user-detail-item">
+          <strong>Телефон:</strong>
+          <span>{{ user.phoneNumber }}</span>
+        </div>
+        <div class="user-description">
+          <strong>Описание:</strong>
+          <p>{{ user.cv || 'Няма информация' }}</p>
+        </div>
+      </div>
+      <button (click)="onBack()">Назад</button>
+    </section>
+  </main>
+</div>

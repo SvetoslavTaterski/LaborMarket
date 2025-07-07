@@ -7,6 +7,7 @@ import { UserService } from '../../../services/user.service';
 import { UserDataModel } from '../../../models/user-model';
 import { HeaderComponent } from "../../header/header.component";
 import { FooterComponent } from "../../footer/footer.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workers-page',
@@ -21,7 +22,7 @@ export class WorkersPageComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
 
@@ -38,6 +39,11 @@ export class WorkersPageComponent implements OnInit {
 
   ngAfterViewInit() {
     this.userData.paginator = this.paginator;
+  }
+
+  onRowDblClick(rowId: number) {
+    console.log('Row double clicked:', rowId);
+    this.router.navigate(['/worker', rowId]);
   }
 
 }

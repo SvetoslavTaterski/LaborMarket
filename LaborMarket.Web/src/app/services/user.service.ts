@@ -24,6 +24,10 @@ export class UserService {
     return this.http.get<UserDataModel>(`${this.baseUrl}GetUserByEmail?userEmail=${email}`);
   }
 
+  getUserById(id: number): Observable<UserDataModel> {
+    return this.http.get<UserDataModel>(`${this.baseUrl}GetUserById?userId=${id}`);
+  }
+
   setUserCv(cv: string): Observable<void> {
     const email = localStorage.getItem('email');
 

@@ -15,6 +15,7 @@ import { ProfilePageComponent } from './app/components/pages/profile-page/profil
 import { PositionPageComponent } from './app/components/pages/position-page/position-page.component';
 import { EditPositionPageComponent } from './app/components/pages/edit-position-page/edit-position-page.component';
 import { EmployerDetailsPageComponent } from './app/components/pages/employer-details-page/employer-details-page.component';
+import { WorkerDetailsPageComponent } from './app/components/pages/worker-details-page/worker-details-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }, // Default route
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'position/:id', component: PositionPageComponent },
   { path: 'edit-position/:id', component: EditPositionPageComponent },
   { path: 'employer/:id', component: EmployerDetailsPageComponent },
+  { path: 'worker/:id', component: WorkerDetailsPageComponent },
   { path: '**', redirectTo: '' }, // Redirect unmatched routes to the homepage
 ];
 

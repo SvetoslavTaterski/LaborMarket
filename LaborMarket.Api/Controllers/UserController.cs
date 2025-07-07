@@ -32,6 +32,17 @@ namespace LaborMarket.Api.Controllers
 			return user;
 		}
 
+		[HttpGet("GetUserById")]
+		public async Task<ActionResult<UserModel>> GetUserById(int userId)
+		{
+			var user = await _context.Workers.FirstOrDefaultAsync(u => u.UserId == userId);
+
+			if (user == null)
+				return NotFound();
+
+			return user;
+		}
+
 		[HttpPut("SetUserCV")]
 		public async Task<ActionResult> SetUserCV(string userEmail, string cv)
 		{
