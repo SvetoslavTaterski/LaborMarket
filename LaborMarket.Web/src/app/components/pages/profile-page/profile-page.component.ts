@@ -97,15 +97,29 @@ export class ProfilePageComponent {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      this.employerService.uploadProfileImage(file).subscribe({
-        next: (response) => {
-          console.log('Image uploaded successfully', response);
-        },
-        error: (err) => {
-          // Optionally, show an error message
-          console.error('Image upload failed', err);
-        }
-      });
+      if (this.userRole === 'User') {
+        this.userService.uploadProfileImage(file).subscribe({
+          next: (response) => {
+            console.log('Image uploaded successfully', response);
+            window.location.reload();
+          },
+          error: (err) => {
+            // Optionally, show an error message
+            console.error('Image upload failed', err);
+          },
+        });
+      } else if (this.userRole === 'Employer') {
+        this.employerService.uploadProfileImage(file).subscribe({
+          next: (response) => {
+            console.log('Image uploaded successfully', response);
+            window.location.reload();
+          },
+          error: (err) => {
+            // Optionally, show an error message
+            console.error('Image upload failed', err);
+          },
+        });
+      }
     }
   }
 }
