@@ -127,3 +127,14 @@ main {
 .change-profile-link:hover {
   color: #1565c0;
 }
+
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

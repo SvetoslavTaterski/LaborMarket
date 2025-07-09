@@ -2,7 +2,16 @@
 <main>
   <div class="card">
     <div class="card-details">
-      <i class="fa-solid fa-user profile-icon"></i>
+      <ng-container *ngIf="displayModel.profileImageUrl; else defaultIcon">
+        <img
+          [src]="displayModel.profileImageUrl"
+          alt="Profile Picture"
+          class="profile-picture"
+        />
+      </ng-container>
+      <ng-template #defaultIcon>
+        <i class="fa-solid fa-user profile-icon"></i>
+      </ng-template>
       <label
         for="profileImageInput"
         class="change-profile-link"

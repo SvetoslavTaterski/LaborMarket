@@ -24,6 +24,7 @@ export class ProfilePageComponent {
     email: '',
     phoneNumber: '',
     description: '',
+    profileImageUrl: '',
   };
 
   constructor(
@@ -32,7 +33,6 @@ export class ProfilePageComponent {
     private employerService: EmployerService
   ) {}
 
-  //TODO: Change model to display profile picutre
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
 
@@ -44,6 +44,7 @@ export class ProfilePageComponent {
             email: user.email,
             phoneNumber: user.phoneNumber,
             description: user.cv,
+            profileImageUrl: user.profileImageUrl || '',
           };
         },
         error: (err) => {
@@ -58,6 +59,7 @@ export class ProfilePageComponent {
             email: employer.contactEmail,
             phoneNumber: employer.contactPhone,
             description: employer.description,
+            profileImageUrl: employer.profileImageUrl || '',
           };
         },
         error: (err) => {

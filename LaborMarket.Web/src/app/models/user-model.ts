@@ -7,6 +7,7 @@ export type UserDataModel = {
   passwordHash: string;
   createdAt: string;
   cv: string;
+  profileImageUrl?: string;
 };
 
 export type CreateUserModel = {
