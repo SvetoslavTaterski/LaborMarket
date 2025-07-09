@@ -1,7 +1,7 @@
-﻿using LaborMarket.Api.Models;
+﻿using LaborMarket.Api.Interfaces;
+using LaborMarket.Api.Models;
 using LaborMarket.Api.Models.JobModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LaborMarket.Api.Controllers
 {
@@ -9,41 +9,25 @@ namespace LaborMarket.Api.Controllers
 	[Route("JobController")]
 	public class JobController : Controller
 	{
-		private readonly LaborMarketContext _context;
+		private readonly IJobService _jobService;
 
-		public JobController(LaborMarketContext context)
+		public JobController(IJobService jobService)
 		{
-			_context = context;
+			_jobService = jobService;
 		}
 
 		[HttpGet("GetAllJobs")]
 		public async Task<ActionResult<IEnumerable<JobModel>>> GetAllJobs()
 		{
-				return await _context.Jobs
-									.Include(job => job.Employer) // Include Employer data
-									.Select(job => new JobModel
-									{
-										JobId = job.JobId,
-										Title = job.Title,
-										Description = job.Description,
-										Company = job.Company,
-										Location = job.Location,
-										PostedAt = job.PostedAt,
-										EmployerId = job.EmployerId,
-										Employer = new EmployerModel
-										{
-											ContactEmail = job.Employer.ContactEmail // Include ContactEmail
-										}
-									})
-									.ToListAsync();
+			var jobs = await _jobService.GetAllJobsAsync();
+			return Ok(jobs);
 		}
 
 		[HttpGet("GetJobById")]
 		public async Task<ActionResult<JobModel>> GetJobById(int jobId)
 		{
-			var foundJob = await _context.Jobs.FindAsync(jobId);
-
-			if(foundJob == null)
+			var foundJob = await _jobService.GetJobByIdAsync(jobId);
+			if (foundJob == null)
 				return NotFound();
 
 			return foundJob;
@@ -55,25 +39,9 @@ namespace LaborMarket.Api.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			var employer = await _context.Employers.FirstOrDefaultAsync(u => u.ContactEmail == jobModel.EmployerEmail);
-
-			if (employer == null)
-				throw new Exception($"There is no such user with email: {jobModel.EmployerEmail}");
-
-
-			var newJob = new JobModel()
-			{
-				Title = jobModel.Title,
-				Description = jobModel.Description,
-				Location = jobModel.Location,
-				PostedAt = DateTime.UtcNow,
-				Company = employer.CompanyName,
-				Employer = employer,
-				EmployerId = employer.EmployerId
-			};
-
-			await _context.Jobs.AddAsync(newJob);
-			await _context.SaveChangesAsync();
+			var newJob = await _jobService.CreateJobAsync(jobModel);
+			if (newJob == null)
+				return BadRequest($"There is no such user with email: {jobModel.EmployerEmail}");
 
 			return Ok(newJob);
 		}
@@ -84,17 +52,9 @@ namespace LaborMarket.Api.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			var jobToEdit = await _context.Jobs.FindAsync(jobModel.JobId);
-
-			if (jobToEdit == null)
+			var result = await _jobService.EditJobAsync(jobModel);
+			if (!result)
 				return NotFound();
-
-			jobToEdit.Title = jobModel.Title;
-			jobToEdit.Description = jobModel.Description;
-			jobToEdit.Location = jobModel.Location;
-
-			_context.Jobs.Update(jobToEdit);
-			await _context.SaveChangesAsync();
 
 			return Ok();
 		}
@@ -102,13 +62,9 @@ namespace LaborMarket.Api.Controllers
 		[HttpDelete("DeleteJob")]
 		public async Task<IActionResult> DeleteJob(int jobId)
 		{
-			var job = await _context.Jobs.FindAsync(jobId);
-
-			if (job == null)
+			var result = await _jobService.DeleteJobAsync(jobId);
+			if (!result)
 				return NotFound();
-
-			_context.Jobs.Remove(job);
-			await _context.SaveChangesAsync();
 
 			return NoContent();
 		}

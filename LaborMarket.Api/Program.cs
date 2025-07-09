@@ -1,5 +1,7 @@
+using LaborMarket.Api.Interfaces;
 using LaborMarket.Api.Models;
 using LaborMarket.Api.Models.AuthenticationModels;
+using LaborMarket.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +21,10 @@ builder.Services.AddSingleton(x =>
 	return new CloudinaryDotNet.Cloudinary(new CloudinaryDotNet.Account(
 		config["CloudName"], config["ApiKey"], config["ApiSecret"]));
 });
+
+//Add services
+builder.Services.AddScoped<IEmployerService, EmployerService>();
+builder.Services.AddScoped<IJobService, JobService>();
 
 builder.Services.AddDbContext<LaborMarketContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

@@ -1,9 +1,6 @@
 ﻿using LaborMarket.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Microsoft.AspNetCore.Http;
+using LaborMarket.Api.Interfaces;
 
 namespace LaborMarket.Api.Controllers
 {
@@ -11,80 +8,47 @@ namespace LaborMarket.Api.Controllers
 	[Route("EmployerController")]
 	public class EmployerController : Controller
 	{
-		private readonly LaborMarketContext _context;
-		private readonly Cloudinary _cloudinary;
+		private readonly IEmployerService _employerService;
 
-
-		public EmployerController(LaborMarketContext context, Cloudinary cloudinary)
+		public EmployerController(IEmployerService employerService)
 		{
-			_context = context;
-			_cloudinary = cloudinary;
+			_employerService = employerService;
 		}
 
 		[HttpGet("GetAllEmployers")]
 		public async Task<ActionResult<IEnumerable<EmployerModel>>> GetAllEmployers()
-		{
-			return await _context.Employers.ToListAsync();
-		}
+			=> Ok(await _employerService.GetAllEmployersAsync());
 
 		[HttpGet("GetEmployerByEmail")]
 		public async Task<ActionResult<EmployerModel>> GetEmployerByEmail(string userEmail)
 		{
-			var employer = await _context.Employers.FirstOrDefaultAsync(u => u.ContactEmail == userEmail);
-
-			if (employer == null)
-				return NotFound();
-
+			var employer = await _employerService.GetEmployerByEmailAsync(userEmail);
+			if (employer == null) return NotFound();
 			return employer;
 		}
 
 		[HttpGet("GetEmployerById")]
 		public async Task<ActionResult<EmployerModel>> GetEmployerById(int userId)
 		{
-			var employer = await _context.Employers.FirstOrDefaultAsync(u => u.EmployerId == userId);
-
-			if (employer == null)
-				return NotFound();
-
+			var employer = await _employerService.GetEmployerByIdAsync(userId);
+			if (employer == null) return NotFound();
 			return employer;
 		}
 
 		[HttpPut("SetEmployerDescription")]
-		public async Task<ActionResult> SetEmployerDescription(string employerEmail,  string description)
+		public async Task<ActionResult> SetEmployerDescription(string employerEmail, string description)
 		{
-			var employer = await _context.Employers.FirstOrDefaultAsync(u => u.ContactEmail == employerEmail);
-
-			if (employer == null)
-				return NotFound();
-
-			employer.Description = description;
-
-			await _context.SaveChangesAsync();
-
+			var result = await _employerService.SetEmployerDescriptionAsync(employerEmail, description);
+			if (!result) return NotFound();
 			return Ok();
 		}
 
 		[HttpPost("UploadProfileImage")]
 		public async Task<IActionResult> UploadProfileImage([FromQuery] string employerEmail, IFormFile file)
 		{
-			if (file == null || file.Length == 0)
-				return BadRequest("No file uploaded.");
-
-			var employer = await _context.Employers.FirstOrDefaultAsync(e => e.ContactEmail == employerEmail);
-			if (employer == null)
-				return NotFound();
-
-			var uploadParams = new ImageUploadParams
-			{
-				File = new FileDescription(file.FileName, file.OpenReadStream()),
-				Folder = "employer_profile_pics"
-			};
-			var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-
-			employer.ProfileImageUrl = uploadResult.SecureUrl.ToString();
-			await _context.SaveChangesAsync();
-
-			return Ok(new { imageUrl = employer.ProfileImageUrl });
+			var imageUrl = await _employerService.UploadProfileImageAsync(employerEmail, file);
+			if (imageUrl == null) return BadRequest("Upload failed or employer not found.");
+			return Ok(new { imageUrl });
 		}
 	}
 }
