@@ -1,6 +1,7 @@
 ﻿namespace LaborMarket.Api.Models
 {
     using LaborMarket.Api.Models.AuthenticationModels;
+    using LaborMarket.Api.Models.JobApplicationModels;
     using LaborMarket.Api.Models.JobModels;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;

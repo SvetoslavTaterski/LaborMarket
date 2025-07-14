@@ -1,0 +1,32 @@
+﻿using LaborMarket.Api.Interfaces;
+using LaborMarket.Api.Models.JobApplicationModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LaborMarket.Api.Controllers
+{
+    [ApiController]
+	[Route("JobApplicationController")]
+	public class JobApplicationController : Controller
+	{
+		private readonly IJobApplicationService _jobApplicationService;
+
+		public JobApplicationController(IJobApplicationService jobApplicationService)
+		{
+			_jobApplicationService = jobApplicationService;
+		}
+
+		[HttpPost("CreateJobApplication")]
+		public async Task<IActionResult> CreateJobApplication([FromBody] CreateApplicationModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var application = await _jobApplicationService.CreateApplicationAsync(model);
+
+			if (application == null)
+				return NotFound("User or Job does not exist.");
+
+			return Ok();
+		}
+	}
+}
