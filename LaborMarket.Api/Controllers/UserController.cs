@@ -1,8 +1,6 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
+﻿using LaborMarket.Api.Interfaces;
 using LaborMarket.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LaborMarket.Api.Controllers
 {
@@ -10,79 +8,54 @@ namespace LaborMarket.Api.Controllers
 	[Route("UserController")]
 	public class UserController : Controller
 	{
-		private readonly LaborMarketContext _context;
-		private readonly Cloudinary _cloudinary;
+		private readonly IUserService _userService;
 
-		public UserController(LaborMarketContext context, Cloudinary cloudinary)
+		public UserController(IUserService userService)
 		{
-			_context = context;
-			_cloudinary = cloudinary;
+			_userService = userService;
 		}
 
 		[HttpGet("GetAllUsers")]
 		public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
 		{
-			return await _context.Workers.ToListAsync();
+			var users = await _userService.GetAllUsersAsync();
+			return Ok(users);
 		}
 
 		[HttpGet("GetUserByEmail")]
 		public async Task<ActionResult<UserModel>> GetUserByEmail(string userEmail)
 		{
-			var user = await _context.Workers.FirstOrDefaultAsync(u => u.Email == userEmail);
-
+			var user = await _userService.GetUserByEmailAsync(userEmail);
 			if (user == null)
 				return NotFound();
-
-			return user;
+			return Ok(user);
 		}
 
 		[HttpGet("GetUserById")]
 		public async Task<ActionResult<UserModel>> GetUserById(int userId)
 		{
-			var user = await _context.Workers.FirstOrDefaultAsync(u => u.UserId == userId);
-
+			var user = await _userService.GetUserByIdAsync(userId);
 			if (user == null)
 				return NotFound();
-
-			return user;
+			return Ok(user);
 		}
 
 		[HttpPut("SetUserCV")]
 		public async Task<ActionResult> SetUserCV(string userEmail, string cv)
 		{
-			var user = await _context.Workers.FirstOrDefaultAsync(u => u.Email == userEmail);
-
-			if (user == null)
+			var success = await _userService.SetUserCVAsync(userEmail, cv);
+			if (!success)
 				return NotFound();
-
-			user.CV = cv;
-
-			await _context.SaveChangesAsync();
-
 			return Ok();
 		}
 
 		[HttpPost("UploadProfileImage")]
 		public async Task<IActionResult> UploadProfileImage([FromQuery] string userEmail, IFormFile file)
 		{
-			if (file == null || file.Length == 0)
-				return BadRequest("No file uploaded.");
-
-			var user = await _context.Workers.FirstOrDefaultAsync(u => u.Email == userEmail);
-			if (user == null)
+			var imageUrl = await _userService.UploadProfileImageAsync(userEmail, file);
+			if (imageUrl == null)
 				return NotFound();
-
-			var uploadParams = new ImageUploadParams
-			{
-				File = new FileDescription(file.FileName, file.OpenReadStream()),
-				Folder = "user_profile_pics"
-			};
-			var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-
-			user.ProfileImageUrl = uploadResult.SecureUrl.ToString();
-			await _context.SaveChangesAsync();
-
-			return Ok(new { imageUrl = user.ProfileImageUrl });
+			return Ok(new { imageUrl });
 		}
 	}
 }
