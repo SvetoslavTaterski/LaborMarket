@@ -87,3 +87,30 @@ button:hover {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+
+.send-cv-btn {
+  margin: 20px auto;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.send-cv-btn:hover {
+  background-color: #218838;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.button-row button {
+  flex: 1 1 0;
+  min-width: 140px;
+  max-width: 180px;
+}

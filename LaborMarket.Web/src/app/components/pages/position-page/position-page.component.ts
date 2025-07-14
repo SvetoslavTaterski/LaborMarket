@@ -17,6 +17,7 @@ export class PositionPageComponent {
   public jobData: JobSummaryModel = {} as JobSummaryModel;
   public employerData: EmployerDataModel = {} as EmployerDataModel;
   public jobId: number | null = null;
+  public userRole: string | null = null;
 
   constructor(
     private jobService: JobsService,
@@ -25,6 +26,8 @@ export class PositionPageComponent {
   ) {}
 
   ngOnInit(): void {
+    this.userRole = localStorage.getItem('userRole');
+    
     this.route.params.subscribe((params) => {
       this.jobId = +params['id'];
       console.log('Job ID:', this.jobId);
@@ -39,7 +42,7 @@ export class PositionPageComponent {
               },
               error: (err) => {
                 console.error('Failed to fetch employer data:', err);
-              }
+              },
             });
             console.log('Job Data:', this.jobData); // Debugging
           },
@@ -53,5 +56,9 @@ export class PositionPageComponent {
 
   onGoBack(): void {
     window.history.back();
+  }
+
+  onSendCv() {
+    // TODO: Implement CV sending logic
   }
 }

@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="job-detail-container">
-    <h2>Позиция:  {{ jobData.title }}</h2>
+    <h2>Позиция: {{ jobData.title }}</h2>
     <div class="job-detail">
       <div class="job-detail-item">
         <strong>Компания:</strong>
@@ -23,6 +23,15 @@
         <p>{{ jobData.description }}</p>
       </div>
     </div>
-    <button (click)="onGoBack()">Назад</button>
+    <div class="button-row">
+      <button (click)="onGoBack()">Назад</button>
+      <button
+        *ngIf="userRole === 'User'"
+        (click)="onSendCv()"
+        class="send-cv-btn"
+      >
+        Изпрати CV
+      </button>
+    </div>
   </div>
 </div>
