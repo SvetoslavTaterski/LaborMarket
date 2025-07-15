@@ -5,6 +5,7 @@
       <thead>
         <tr>
           <th>Име</th>
+          <th>Позиция</th>
           <th>Дата</th>
           <th>Статус</th>
           <th>Действия</th>
@@ -13,6 +14,7 @@
       <tbody>
         <tr *ngFor="let application of jobApplications">
           <td>{{ application.userName }}</td>
+          <td>{{ application.jobName }}</td>
           <td>{{ application.applicationDate | date : "dd.MM.yyyy" }}</td>
           <td>{{ application.status }}</td>
           <td>

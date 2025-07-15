@@ -14,4 +14,9 @@ export class JobApplicationService {
   createJobApplication(model: CreateApplicationModel): Observable<CreateApplicationModel> {
     return this.http.post<CreateApplicationModel>(`${this.baseUrl}CreateJobApplication`, model);
   }
+
+  getApplicationsByEmployerEmail(email: string): Observable<CreateApplicationModel[]> {
+  return this.http.get<CreateApplicationModel[]>(`${this.baseUrl}GetEmployerApplicationsByEmployerEmail?employerEmail=${email}`);
+  }
+  
 }

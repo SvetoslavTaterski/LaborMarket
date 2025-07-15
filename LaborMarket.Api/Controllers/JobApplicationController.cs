@@ -28,5 +28,19 @@ namespace LaborMarket.Api.Controllers
 
 			return Ok();
 		}
+
+		[HttpGet("GetEmployerApplicationsByEmployerEmail")]
+		public async Task<IActionResult> GetEmployerApplicationsByEmployerEmail([FromQuery] string employerEmail)
+		{
+			if(employerEmail == null)
+				return BadRequest();
+
+			var applications = await _jobApplicationService.GetApplicationsForEmployerAsync(employerEmail);
+
+			if (applications == null)
+				return BadRequest();
+
+			return Ok(applications);
+		}
 	}
 }
