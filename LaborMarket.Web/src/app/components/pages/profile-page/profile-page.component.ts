@@ -7,11 +7,12 @@ import { EmployerDataModel } from '../../../models/employer-model';
 import { EmployerService } from '../../../services/employer.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { JobApplicationsTableComponent } from "../../job-applications-table/job-applications-table/job-applications-table.component";
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [HeaderComponent, FormsModule, CommonModule],
+  imports: [HeaderComponent, FormsModule, CommonModule, JobApplicationsTableComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
 })
@@ -121,5 +122,49 @@ export class ProfilePageComponent {
         });
       }
     }
+  }
+  //TODO: Implement call for the job applications
+
+  jobApplications = [
+    {
+      userName: 'Иван Иванов',
+      applicationDate: new Date(),
+      status: 'Изчаква'
+    },
+    {
+      userName: 'Мария Петрова',
+      applicationDate: new Date(),
+      status: 'Изчаква'
+    },
+    {
+      userName: 'Иван Иванов',
+      applicationDate: new Date(),
+      status: 'Изчаква'
+    },
+    {
+      userName: 'Мария Петрова',
+      applicationDate: new Date(),
+      status: 'Изчаква'
+    },
+    {
+      userName: 'Иван Иванов',
+      applicationDate: new Date(),
+      status: 'Изчаква'
+    },
+    {
+      userName: 'Мария Петрова',
+      applicationDate: new Date(),
+      status: 'Изчаква'
+    }
+  ];
+
+  approve(application: any) {
+    //TODO: implement approve logic
+    application.status = 'Одобрен';
+  }
+
+  decline(application: any) {
+    //TODO: implement decline logic
+    application.status = 'Отказан';
   }
 }

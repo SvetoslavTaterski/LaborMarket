@@ -42,6 +42,13 @@
       Изход
     </button>
   </div>
+  <app-job-applications-table
+    *ngIf="userRole === 'Employer'"
+    [jobApplications]="jobApplications"
+    (approve)="approve($event)"
+    (decline)="decline($event)"
+  >
+  </app-job-applications-table>
   <div class="description-box">
     <h3 *ngIf="userRole === 'Employer'">Описание на работодателя</h3>
     <h3 *ngIf="userRole === 'User'">CV</h3>

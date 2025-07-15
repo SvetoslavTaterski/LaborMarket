@@ -1,0 +1,35 @@
+<div class="job-applications-card">
+  <h2 class="card-title">Кандидатури за работни позиции</h2>
+  <div class="applications-table-container">
+    <table class="applications-table">
+      <thead>
+        <tr>
+          <th>Име</th>
+          <th>Дата</th>
+          <th>Статус</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let application of jobApplications">
+          <td>{{ application.userName }}</td>
+          <td>{{ application.applicationDate | date : "dd.MM.yyyy" }}</td>
+          <td>{{ application.status }}</td>
+          <td>
+            <div class="actions-btn-group">
+              <button class="approve-btn" (click)="approve.emit(application)">
+                Одобри
+              </button>
+              <button class="decline-btn" (click)="decline.emit(application)">
+                Отхвърли
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="jobApplications.length === 0" class="no-data">
+      Няма кандидатури за тази фирма.
+    </div>
+  </div>
+</div>
