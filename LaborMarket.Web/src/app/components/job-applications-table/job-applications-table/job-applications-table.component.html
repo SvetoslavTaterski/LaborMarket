@@ -16,7 +16,18 @@
           <td>{{ application.userName }}</td>
           <td>{{ application.jobName }}</td>
           <td>{{ application.applicationDate | date : "dd.MM.yyyy" }}</td>
-          <td>{{ application.status }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [ngClass]="{
+                pending: application.status === 'Pending',
+                approved: application.status === 'Одобрен',
+                declined: application.status === 'Отказан'
+              }"
+            >
+              {{ application.status }}
+            </span>
+          </td>
           <td>
             <div class="actions-btn-group">
               <button class="approve-btn" (click)="approve.emit(application)">

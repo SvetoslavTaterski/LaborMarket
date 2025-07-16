@@ -2,7 +2,6 @@
   background: #f6fbff;
   border-radius: 18px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.09);
-  width: 600px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -97,4 +96,33 @@
   display: flex;
   gap: 8px;
   justify-content: center;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+  border: none;
+  background: #eee;
+  color: #333;
+}
+
+.status-badge.pending {
+  background: #ff9800;
+  color: #fff;
+}
+
+.status-badge.approved {
+  background: #43a047;
+  color: #fff;
+}
+
+.status-badge.declined {
+  background: #d32f2f;
+  color: #fff;
 }
