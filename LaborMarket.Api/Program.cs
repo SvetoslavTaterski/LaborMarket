@@ -28,6 +28,7 @@ builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddDbContext<LaborMarketContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
