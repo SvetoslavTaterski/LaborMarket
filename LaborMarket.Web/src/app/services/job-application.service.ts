@@ -16,7 +16,13 @@ export class JobApplicationService {
   }
 
   getApplicationsByEmployerEmail(email: string): Observable<CreateApplicationModel[]> {
-  return this.http.get<CreateApplicationModel[]>(`${this.baseUrl}GetEmployerApplicationsByEmployerEmail?employerEmail=${email}`);
+    return this.http.get<CreateApplicationModel[]>(`${this.baseUrl}GetEmployerApplicationsByEmployerEmail?employerEmail=${email}`);
   }
-  
+
+  changeApplicationStatus(applicationId: number, newStatus: string): Observable<void> {
+    return this.http.put<any>(
+      `${this.baseUrl}ChangeApplicationStatus?applicationId=${applicationId}&newStatus=${newStatus}`,
+      null
+    );
+  }
 }

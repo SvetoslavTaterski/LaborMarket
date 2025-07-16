@@ -6,5 +6,7 @@ namespace LaborMarket.Api.Interfaces
 	{
 		Task<ApplicationModel?> CreateApplicationAsync(CreateApplicationModel model);
 		Task<List<DisplayApplicationModel>> GetApplicationsForEmployerAsync(string employerEmail);
+
+		Task<bool> ChangeApplicationStatusAsync(int applicationId, string newStatus);
 	}
 }

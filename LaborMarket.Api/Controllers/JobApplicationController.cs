@@ -42,5 +42,16 @@ namespace LaborMarket.Api.Controllers
 
 			return Ok(applications);
 		}
+
+		[HttpPut("ChangeApplicationStatus")]
+		public async Task<IActionResult> ChangeApplicationStatus([FromQuery] int applicationId, string newStatus)
+		{
+			var result = await _jobApplicationService.ChangeApplicationStatusAsync(applicationId, newStatus);
+
+			if (!result)
+				return NotFound("Application not found.");
+
+			return Ok();
+		}
 	}
 }

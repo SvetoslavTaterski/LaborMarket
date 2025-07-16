@@ -145,12 +145,24 @@ export class ProfilePageComponent {
   }
 
   approve(application: any) {
-    //TODO: implement approve logic
-    application.status = 'Одобрен';
-  }
+  this.jobApplicationService.changeApplicationStatus(application.applicationId, 'Одобрен').subscribe({
+    next: () => {
+      application.status = 'Одобрен';
+    },
+    error: (err) => {
+      console.error('Error approving application:', err);
+    }
+  });
+}
 
-  decline(application: any) {
-    //TODO: implement decline logic
-    application.status = 'Отказан';
-  }
+decline(application: any) {
+  this.jobApplicationService.changeApplicationStatus(application.applicationId, 'Отказан').subscribe({
+    next: () => {
+      application.status = 'Отказан';
+    },
+    error: (err) => {
+      console.error('Error declining application:', err);
+    }
+  });
+}
 }

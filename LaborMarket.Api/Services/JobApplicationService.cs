@@ -46,5 +46,16 @@ namespace LaborMarket.Api.Services
 
 			return response;
 		}
+
+		public async Task<bool> ChangeApplicationStatusAsync(int applicationId, string newStatus)
+		{
+			var application = await _context.Applications.FindAsync(applicationId);
+			if (application == null)
+				return false;
+
+			application.Status = newStatus;
+			await _context.SaveChangesAsync();
+			return true;
+		}
 	}
 }
