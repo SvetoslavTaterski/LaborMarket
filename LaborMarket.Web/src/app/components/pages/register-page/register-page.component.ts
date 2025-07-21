@@ -5,6 +5,7 @@ import { CreateUserModel } from '../../../models/user-model';
 import { CreateEmployerModel } from '../../../models/employer-model';
 import { RegisterService } from '../../../services/register.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-page',
@@ -34,28 +35,29 @@ export class RegisterPageComponent {
 
   constructor(
     private registerService: RegisterService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   createUser() {
     if (this.userModel.role === 'user') {
       this.registerService.registerUser(this.userModel).subscribe({
-        next: (response) => {
-          console.log('User registered successfully:', response);
+        next: () => {
+          this.toastrService.success('User registered successfully:');
           this.router.navigate(['/login']);
         },
-        error: (error) => {
-          console.error('Error registering user:', error);
+        error: () => {
+          this.toastrService.error('Error registering user:');
         },
       });
     } else if (this.userModel.role === 'employer') {
       this.registerService.registerEmployer(this.employerModel).subscribe({
-        next: (response) => {
-          console.log('Employer registered successfully:', response);
+        next: () => {
+          this.toastrService.success('Employer registered successfully:');
           this.router.navigate(['/login']);
         },
-        error: (error) => {
-          console.error('Error registering employer:', error);
+        error: () => {
+          this.toastrService.error('Error registering employer:');
         },
       });
     }

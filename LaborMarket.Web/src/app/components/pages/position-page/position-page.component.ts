@@ -8,6 +8,7 @@ import { EmployerService } from '../../../services/employer.service';
 import { JobApplicationService } from '../../../services/job-application.service';
 import { UserService } from '../../../services/user.service';
 import { UserDataModel } from '../../../models/user-model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-position-page',
@@ -28,24 +29,26 @@ export class PositionPageComponent {
     private route: ActivatedRoute,
     private employerService: EmployerService,
     private jobApplicationService: JobApplicationService,
-    private userService: UserService
+    private userService: UserService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
 
-    this.userService.getUserByEmail().subscribe({
-      next: (user) => {
-        this.userData = user;
-      },
-      error: (err) => {
-        console.error('Failed to fetch user data:', err);
-      }
-    });
+    if (this.userRole === 'User') {
+      this.userService.getUserByEmail().subscribe({
+        next: (user) => {
+          this.userData = user;
+        },
+        error: (err) => {
+          this.toastrService.error('Failed to fetch user data!', err);
+        },
+      });
+    }
 
     this.route.params.subscribe((params) => {
       this.jobId = +params['id'];
-      console.log('Job ID:', this.jobId);
       // Fetch job data using the jobId
       if (this.jobId) {
         this.jobService.getJobById(this.jobId).subscribe({
@@ -55,14 +58,13 @@ export class PositionPageComponent {
               next: (employer) => {
                 this.employerData = employer;
               },
-              error: (err) => {
-                console.error('Failed to fetch employer data:', err);
+              error: () => {
+                this.toastrService.error('Failed to fetch employer data!');
               },
             });
-            console.log('Job Data:', this.jobData); // Debugging
           },
-          error: (err) => {
-            console.error('Failed to fetch job data:', err);
+          error: () => {
+            this.toastrService.error('Failed to fetch job data!');
           },
         });
       }
@@ -75,22 +77,19 @@ export class PositionPageComponent {
 
   onSendCv() {
     const model = {
-    userId: this.userData.userId,
-    jobId: this.jobId!,
-    applicationDate: new Date(),
-    status: 'Pending',
-  };
+      userId: this.userData.userId,
+      jobId: this.jobId!,
+      applicationDate: new Date(),
+      status: 'Pending',
+    };
 
-  this.jobApplicationService.createJobApplication(model).subscribe({
-    next: () => {
-      // Show success message or update UI
-      alert('CV изпратено успешно!');
-    },
-    error: (err) => {
-      // Show error message
-      alert('Грешка при изпращане на CV!');
-      console.error(err);
-    }
-  });
+    this.jobApplicationService.createJobApplication(model).subscribe({
+      next: () => {
+        this.toastrService.success('CV изпратено успешно!');
+      },
+      error: () => {
+        this.toastrService.error('Грешка при изпращане на CV!');
+      },
+    });
   }
 }

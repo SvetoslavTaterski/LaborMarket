@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EmployerService } from '../../../services/employer.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-position-page',
@@ -22,13 +23,13 @@ export class EditPositionPageComponent {
   constructor(
     private jobService: JobsService,
     private route: ActivatedRoute,
-    private employerService: EmployerService
+    private employerService: EmployerService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.jobId = +params['id'];
-      console.log('Job ID:', this.jobId);
       // Fetch job data using the jobId
       if (this.jobId) {
         this.jobService.getJobById(this.jobId).subscribe({
@@ -38,14 +39,13 @@ export class EditPositionPageComponent {
               next: (employer) => {
                 this.employerData = employer;
               },
-              error: (err) => {
-                console.error('Failed to fetch employer data:', err);
+              error: () => {
+                this.toastrService.error('Failed to employer data!');
               },
             });
-            console.log('Job Data:', this.jobData); // Debugging
           },
-          error: (err) => {
-            console.error('Failed to fetch job data:', err);
+          error: () => {
+            this.toastrService.error('Failed to fetch job data!');
           },
         });
       }
@@ -54,12 +54,11 @@ export class EditPositionPageComponent {
 
   onSave(){ 
       this.jobService.editJob(this.jobData).subscribe({
-        next: (response) => {
-          console.log('Job updated successfully:', response);
-          // Optionally, navigate back or show a success message
+        next: () => {
+          this.toastrService.success('Job updated successfully:');
         },
-        error: (err) => {
-          console.error('Failed to update job:', err);
+        error: () => {
+          this.toastrService.error('Failed to update job:');
         },
       });
   }

@@ -42,7 +42,6 @@ export class WorkersPageComponent implements OnInit {
   }
 
   onRowDblClick(rowId: number) {
-    console.log('Row double clicked:', rowId);
     this.router.navigate(['/worker', rowId]);
   }
 

@@ -6,15 +6,8 @@ import { UserService } from '../../services/user.service';
   standalone: true,
   imports: [],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   constructor(private apiService: UserService) {}
-
-  onAboutClick() {
-    this.apiService.getAllUsers().subscribe({
-      next: (response) => console.log('API response:', response),
-      error: (err) => console.error('API error:', err)
-    });
-  }
 }

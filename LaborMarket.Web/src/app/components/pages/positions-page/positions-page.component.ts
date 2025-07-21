@@ -9,6 +9,7 @@ import { CreateJobModel, JobDataModel } from '../../../models/job-model';
 import { JobsService } from '../../../services/jobs.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-positions-page',
@@ -45,7 +46,11 @@ export class PositionsPageComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private jobService: JobsService, private router: Router) {}
+  constructor(
+    private jobService: JobsService,
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.userRole = localStorage.getItem('userRole');
@@ -57,8 +62,8 @@ export class PositionsPageComponent implements OnInit {
           isCreator: job.employer?.contactEmail === this.loggedInEmail, // Add a flag for creator
         }));
       },
-      error: (err) => {
-        console.error('Failed to load jobs:', err);
+      error: () => {
+        this.toastrService.error('Failed to load jobs:');
       },
     });
   }
@@ -68,19 +73,18 @@ export class PositionsPageComponent implements OnInit {
   }
 
   onRowDblClick(jobId: number) {
-    console.log('Row double-clicked:', jobId);
     this.router.navigate(['/position', jobId]);
   }
 
   onCreateJob() {
-    this.createJobModel.employerEmail = localStorage.getItem('email') || ''; // Set employer email
+    this.createJobModel.employerEmail = localStorage.getItem('email') || '';
     this.jobService.createJob(this.createJobModel).subscribe({
       next: () => {
-        console.log('Job created successfully:', this.createJobModel);
+        this.toastrService.success('Job created successfully:');
         window.location.reload();
       },
-      error: (err) => {
-        console.error('Failed to create job:', err);
+      error: () => {
+        this.toastrService.error('Failed to create job:');
       },
     });
   }
@@ -88,7 +92,7 @@ export class PositionsPageComponent implements OnInit {
   onDelete(jobModel: JobDataModel) {
     this.jobService.deleteJob(jobModel.jobId).subscribe({
       next: () => {
-        console.log('Job deleted successfully:', jobModel.jobId);
+        this.toastrService.success('Job deleted successfully:');
         this.jobsData.data = this.jobsData.data.filter(
           (job) => job.jobId !== jobModel.jobId
         );

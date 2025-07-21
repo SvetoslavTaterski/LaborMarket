@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { JobApplicationsTableComponent } from '../../job-applications-table/job-applications-table/job-applications-table.component';
 import { CreateApplicationModel } from '../../../models/job-application-model';
 import { JobApplicationService } from '../../../services/job-application.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile-page',
@@ -41,7 +42,8 @@ export class ProfilePageComponent {
     public authService: AuthService,
     private userService: UserService,
     private employerService: EmployerService,
-    private jobApplicationService: JobApplicationService
+    private jobApplicationService: JobApplicationService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class ProfilePageComponent {
       next: (applications: CreateApplicationModel[]) => {
         this.jobApplications = applications;
       },
-      error: (err) => {
-        console.error('Error fetching job applications:', err);
+      error: () => {
+        this.toastrService.error('Error fetching job applications:');
       }
     });
 
@@ -68,8 +70,8 @@ export class ProfilePageComponent {
             profileImageUrl: user.profileImageUrl || '',
           };
         },
-        error: (err) => {
-          console.error('Error fetching user data:', err);
+        error: () => {
+          this.toastrService.error('Error fetching user data:');
         },
       });
     } else if (this.userRole === 'Employer') {
@@ -83,8 +85,8 @@ export class ProfilePageComponent {
             profileImageUrl: employer.profileImageUrl || '',
           };
         },
-        error: (err) => {
-          console.error('Error fetching employer data:', err);
+        error: () => {
+          this.toastrService.error('Error fetching employer data:');
         },
       });
     }
@@ -94,10 +96,10 @@ export class ProfilePageComponent {
     if (this.userRole === 'User') {
       this.userService.setUserCv(this.displayModel.description).subscribe({
         next: () => {
-          console.log('CV updated successfully');
+          this.toastrService.success('CV updated successfully');
         },
-        error: (err) => {
-          console.error('Error updating CV:', err);
+        error: () => {
+          this.toastrService.error('Error updating CV:');
         },
       });
     } else if (this.userRole === 'Employer') {
@@ -105,10 +107,10 @@ export class ProfilePageComponent {
         .setEmployerDescription(this.displayModel.description)
         .subscribe({
           next: () => {
-            console.log('Description updated successfully');
+            this.toastrService.success('Description updated successfully');
           },
-          error: (err) => {
-            console.error('Error updating description:', err);
+          error: () => {
+            this.toastrService.error('Error updating description:');
           },
         });
     }
@@ -120,24 +122,22 @@ export class ProfilePageComponent {
       this.selectedFile = file;
       if (this.userRole === 'User') {
         this.userService.uploadProfileImage(file).subscribe({
-          next: (response) => {
-            console.log('Image uploaded successfully', response);
+          next: () => {
+            this.toastrService.success('Image uploaded successfully');
             window.location.reload();
           },
-          error: (err) => {
-            // Optionally, show an error message
-            console.error('Image upload failed', err);
+          error: () => {
+            this.toastrService.error('Image upload failed');
           },
         });
       } else if (this.userRole === 'Employer') {
         this.employerService.uploadProfileImage(file).subscribe({
-          next: (response) => {
-            console.log('Image uploaded successfully', response);
+          next: () => {
+            this.toastrService.success('Image uploaded successfully');
             window.location.reload();
           },
-          error: (err) => {
-            // Optionally, show an error message
-            console.error('Image upload failed', err);
+          error: () => {
+            this.toastrService.error('Image upload failed');
           },
         });
       }

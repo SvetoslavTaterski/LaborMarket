@@ -30,7 +30,6 @@ export class LoginPageComponent {
   login() {
     this.registerService.login(this.loginModel).subscribe({
       next: (response: LoginResponseModel) => {
-        console.log('Login successful:', response);
         this.authService.login(response);
         this.toastrService.success("Успешно влизане");
         this.router.navigate(['/']);
