@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaborMarket.Api", "LaborMarket.Api.csproj", "{8CD346EC-2A7F-4EE1-967E-9D462C2C96B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaborMarket.Api", "LaborMarket.Api.csproj", "{8CD346EC-2A7F-4EE1-967E-9D462C2C96B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaborMarketTests", "..\LaborMarketTests\LaborMarketTests.csproj", "{AADB3993-BAE4-491E-A714-CE81CC8CD22E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8CD346EC-2A7F-4EE1-967E-9D462C2C96B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CD346EC-2A7F-4EE1-967E-9D462C2C96B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CD346EC-2A7F-4EE1-967E-9D462C2C96B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AADB3993-BAE4-491E-A714-CE81CC8CD22E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADB3993-BAE4-491E-A714-CE81CC8CD22E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADB3993-BAE4-491E-A714-CE81CC8CD22E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADB3993-BAE4-491E-A714-CE81CC8CD22E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
