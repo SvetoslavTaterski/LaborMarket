@@ -96,7 +96,7 @@ export class ProfilePageComponent {
     if (this.userRole === 'User') {
       this.userService.setUserCv(this.displayModel.description).subscribe({
         next: () => {
-          this.toastrService.success('CV updated successfully');
+          this.toastrService.success('CV Ви беше променен успешно');
         },
         error: () => {
           this.toastrService.error('Error updating CV:');

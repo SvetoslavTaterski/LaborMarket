@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let application of jobApplications" (click)="onRowDblClick(application.userId)">
+        <tr *ngFor="let application of jobApplications" (dbclick)="onRowDblClick(application.userId)">
           <td>{{ application.userName }}</td>
           <td>{{ application.jobName }}</td>
           <td>{{ application.applicationDate | date : "dd.MM.yyyy" }}</td>
